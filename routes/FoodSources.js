@@ -6,3 +6,5 @@ const keys = require('../config/keys');
 const FoodSource = require('../models/FoodSource');
 
 router.get('/test', (req, res) => res.json({"msg": "FoodSources works"}));
+
+module.exports = router;

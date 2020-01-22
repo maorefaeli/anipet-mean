@@ -6,3 +6,5 @@ const keys = require('../config/keys');
 const Store = require('../models/Store');
 
 router.get('/test', (req, res) => res.json({"msg": "Stores works"}));
+
+module.exports = router;
