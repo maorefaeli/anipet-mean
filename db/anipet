@@ -1,0 +1,19 @@
+#!/bin/bash
+if [[ $1 == 'start' ]]; then
+    mongod --config ./mongod.conf
+	echo 'Anipet db is up'
+
+elif [[ $1 == 'stop' ]]; then
+    kill -2 `pgrep mongo`
+    echo 'Anipet db is down'
+    
+elif [[ $1 == 'wipe' ]]; then
+    # First make sure anipet is alive
+    ${BASH_SOURCE%/*}/anipet start
+
+    mongo localhost:27017 --quiet --eval 'use anipet; db.dropDatabase();'
+    echo 'Anipet database is deleted. Creating a new one...'
+
+    # TOOD: CREATE
+    echo 'New Anipet databade is created.'
+fi
