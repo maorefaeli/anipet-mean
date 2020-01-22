@@ -1,6 +1,6 @@
 # Install mongo om MacOS:
 
-## Install Homebrew
+## Install Homebrew (if you don't have)
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
@@ -19,11 +19,7 @@ cd db
 chmod +x anipet
 ```
 ## Start
-```
-./anipet start
-```
+Run `./anipet start` to get mongo up and running on `localhost:27017`.
 
 ## Stop
-```
-./anipet stop
-```
+Run `./anipet stop` to stop Anipet db
