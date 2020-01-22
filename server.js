@@ -24,10 +24,11 @@ mongoose
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
+*/
+
 app.get('/', (req, res) => {
     res.send({msg: 'hello! Server is up'});
 });
-*/
 
 //  Use Routes
 app.use('/users', users)
