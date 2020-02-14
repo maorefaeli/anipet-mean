@@ -17,6 +17,7 @@ brew install mongodb-community@4.2
 ```
 cd db
 chmod +x anipet
+sudo mkdir -p data/mongodb
 ```
 ## Start
 Run `./anipet start` to get mongo up and running on `localhost:27017`.
