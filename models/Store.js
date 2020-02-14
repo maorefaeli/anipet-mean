@@ -1,0 +1,29 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+//Create Schema
+const StoreSchema = new Schema({
+    _id: {
+        type: Schema.Types.ObjectId,
+        required: false
+    },
+    storeAdmin: {
+        type: String,
+        required: true
+    },
+    Products:[{
+        type: Schema.Types.ObjectId,
+        ref: "Products",
+        required: false
+    }],
+    city: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    }
+});
+
+module.exports = Store = mongoose.model('Stores', StoreSchema);

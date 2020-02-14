@@ -20,7 +20,7 @@ router.post('/register', (req, res) => {
                 const newUser = new User({
                     name: req.body.name,
                     password: req.body.password,
-                    isAdmin: req.body.isadmin
+                    isAdmin: req.body.isAdmin
                 });
                 newUser.save()
                     .then(user => res.json(user))
