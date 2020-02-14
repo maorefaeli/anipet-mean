@@ -28,5 +28,43 @@ router.post('/register', (req, res) => {
         });
 });
 
+// @route POST api/users/login
+// @desc Login user
+// @access Public
 
+router.post('/login', (req, res) => {
+    const name = req.body.name;
+    const password = req.body.password;
+    //find user by name
+    User.findOne({ name })
+        .then(user => {
+            //Check for user
+            if(!user) {
+                errors.name = 'User not found';
+                return res.status(404).json({"error":"user not found"});
+            }
+            //Check password
+            bcrypt.compare(password, user.password)
+                .then(isMatch => {
+                    if (isMatch) {
+                        //User matched
+                        const payload = { id: user.id, name: user.name, avatar: user.avatar}; //Create JWT Payload
+                        //Sign Token
+                        jwt.sign(
+                            payload,
+                            keys.secretOrKey,
+                            { expiresIn: 3600 }, 
+                            (err, token) => {
+                                res.json({
+                                    success: true,
+                                    token: 'Bearer ' + token
+                                });
+                            });
+                    } else {
+                        errors.passowrd = 'Password incorrect';
+                        return res.status(400).json(errors);
+                    }
+                });
+        });
+});
 module.exports = router;
