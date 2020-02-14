@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Schema
-const Purchase = new Schema({
+const PurchaseSchema = new Schema({
     userId: {
         type: String,
         required: true
@@ -21,4 +21,4 @@ const Purchase = new Schema({
     },
 });
 
-module.exports = Purchase = mongoose.model('Purchase', Purchase, "Purchases");
+module.exports = Purchase = mongoose.model('Purchase', PurchaseSchema, "Purchases");
