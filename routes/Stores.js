@@ -34,10 +34,10 @@ router.get('/', async (req, res) => {
         if(!stores){
             return res.status(400).json({"error":"There are not stores"});
         }
-        return res.json(profiles);
+        return res.json(stores);
     } catch (error) {
         console.log(error);
-        res.status(400).json({"error":"Problem saving store"})
+        res.status(400).json({"error":"Problem getting stores"})
     }
 });
 
