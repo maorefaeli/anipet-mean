@@ -11,20 +11,16 @@ const foodsources = require('./routes/FoodSources');
 const app = express();
 const port = process.env.PORT || 5000;
 
-//  Body parser middleware
-app.use(bodyParser.urlencoded({extended: false}));
+// Body parser middleware
 app.use(bodyParser.json());
 
-/*
-//  DB Config
+// DB Config
 const db = require('./config/keys').mongoURI;
-//  Connect to mongoDB
+// Connect to mongoDB
 mongoose
     .connect(db, { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
-
-*/
 
 app.get('/', (req, res) => {
     res.send({msg: 'hello! Server is up'});
@@ -37,7 +33,7 @@ app.use('/purchases', purchases)
 app.use('/stores', stores)
 app.use('/foodsources', foodsources)
 
-//  Default request catcher
+// Default request catcher
 app.all('*', (req, res) => {
     res.status(404).send({msg: 'Not found'});
 });
