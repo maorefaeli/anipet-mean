@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-/*
+
 //  DB Config
 const db = require('./config/keys').mongoURI;
 //  Connect to mongoDB
@@ -24,7 +24,7 @@ mongoose
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
-*/
+
 
 app.get('/', (req, res) => {
     res.send({msg: 'hello! Server is up'});
