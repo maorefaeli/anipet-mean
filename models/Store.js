@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const StoreSchema = new Schema({
-    _id: {
-        type: Schema.Types.ObjectId,
-        required: false
-    },
     storeAdmin: {
         type: String,
         required: true

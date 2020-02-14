@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const name = req.body.name;
     const password = req.body.password;
-
+    
     // find user by name
     const user = await User.findOne({ name });
 
@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({"error": "wrong password"});
     }
 
-    return res.status(200);
+    return res.json();
 });
 
 module.exports = router;
