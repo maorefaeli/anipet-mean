@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
     });
 
     if (isAdmin) {
-        user.isAdmin = isAdmin;
+        user.isAdmin = "admin";
     }
 
     try {
