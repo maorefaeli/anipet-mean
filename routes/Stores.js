@@ -25,4 +25,20 @@ router.post('/add', async (req, res) => {
     }
 });
 
+// @route GET api/stores
+// @desc Get all stores
+// @access Public
+router.get('/', async (req, res) => {
+    try {
+        stores = await Store.find();
+        if(!stores){
+            return res.status(400).json({"error":"There are not stores"});
+        }
+        return res.json(profiles);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({"error":"Problem saving store"})
+    }
+});
+
 module.exports = router;
