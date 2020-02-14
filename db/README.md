@@ -11,14 +11,19 @@ brew tap mongodb/brew
 brew install mongodb-community@4.2
 ```
 
+## Install Robo3t
+Download from `https://robomongo.org/download`
+
 # Run Database
 
 ## Permissions
 ```
 cd db
 chmod +x anipet
-sudo mkdir -p data/mongodb
+mkdir -p data/mongodb
+sudo chmod 777 data/mongodb
 ```
+
 ## Start
 Run `./anipet start` to get mongo up and running on `localhost:27017`.
 
