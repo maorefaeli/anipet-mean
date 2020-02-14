@@ -1,7 +1,7 @@
 const isUndefined = (value) => typeof value === 'undefined';
 exports.isUndefined = isUndefined;
 
-exports.isUndefined = (value) => !isUndefined(value);
+exports.isDefined = (value) => !isUndefined(value);
 
 const isString = (value) => typeof value === 'string';
 exports.isString = isString;

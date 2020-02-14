@@ -7,11 +7,6 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
-    foodSourceId: {
-        type: Schema.Types.ObjectId,
-        ref: "FoodSource",
-        required: true
-    },
     weightInKilo: {
         type: Number,
         required: true

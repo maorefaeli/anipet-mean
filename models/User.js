@@ -12,11 +12,7 @@ const UserSchema = new Schema({
         required: true
     },
     isAdmin: {
-        type: String,
-        required: false
-    },
-    favorite: {
-        type: String,
+        type: Boolean,
         required: false
     }
 });

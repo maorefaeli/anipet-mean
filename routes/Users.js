@@ -13,14 +13,18 @@ router.get('/test', (req, res) => res.json({"msg": "Users works"}));
 // @access Public
 
 router.post('/register', async (req, res) => {
-    const { name, password } = req.body;
+    const { name, password, isAdmin } = req.body;
 
     if (!validators.isStringWithValue(name)) {
-        return res.status(400).json({"error": "name cannot be empty"})
+        return res.status(400).json({"error": "name cannot be empty"});
     }
 
     if (!validators.isStringWithValue(password)) {
-        return res.status(400).json({"error": "password cannot be empty"})
+        return res.status(400).json({"error": "password cannot be empty"});
+    }
+
+    if (validators.isDefined(isAdmin) && !validators.isBoolean(isAdmin)) {
+        return res.status(400).json({"error": "isAdmin must be boolean"});
     }
 
     let user = await User.findOne({ name: name });
@@ -31,8 +35,12 @@ router.post('/register', async (req, res) => {
 
     user = new User({
         name: name,
-        password: password,
+        password: password
     });
+
+    if (isAdmin) {
+        user.isAdmin = isAdmin;
+    }
 
     try {
         user = await user.save();
@@ -57,7 +65,7 @@ router.post('/login', async (req, res) => {
     if (!validators.isStringWithValue(password)) {
         return res.status(400).json({"error": "password cannot be empty"})
     }
-    
+
     // find user by name
     const user = await User.findOne({ name });
 

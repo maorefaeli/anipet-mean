@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 // Create Schema
 const StoreSchema = new Schema({
     storeAdmin: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "User",
         required: true
     },
     Products: [{

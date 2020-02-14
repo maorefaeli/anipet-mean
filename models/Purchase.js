@@ -4,15 +4,18 @@ const Schema = mongoose.Schema;
 // Create Schema
 const PurchaseSchema = new Schema({
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "User",
         required: true
     },
     productId: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Product",
         required: true
     },
     storeId: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Store",
         required: true
     },
     date: {
