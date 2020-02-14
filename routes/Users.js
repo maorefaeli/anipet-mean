@@ -11,23 +11,6 @@ router.get('/test', (req, res) => res.json({"msg": "Users works"}));
 // @desc Register user
 // @access Public
 
-<<<<<<< HEAD
-router.post('/register', (req, res) => {
-    User.findOne({ name: req.body.name })
-        .then(user => {
-            if (user) {
-                return res.status(400).json({"error":"user already exist"});
-            } else {
-                const newUser = new User({
-                    name: req.body.name,
-                    password: req.body.password,
-                    isAdmin: req.body.isAdmin
-                });
-                newUser.save()
-                    .then(user => res.json(user))
-                    .catch(err => console.log(err))
-            }
-=======
 router.post('/register', async (req, res) => {
     let user = await User.findOne({ name: req.body.name });
 
@@ -38,7 +21,6 @@ router.post('/register', async (req, res) => {
             name: req.body.name,
             password: req.body.password,
             isAdmin: req.body.isAdmin
->>>>>>> 68d8781ff28ad809e6ed66b2544293b4ec74d1e6
         });
 
         try {
