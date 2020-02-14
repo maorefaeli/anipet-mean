@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//Create Schema
+// Create Schema
 const UserSchema = new Schema({
     _id: {
         type: Schema.Types.ObjectId,
@@ -25,4 +25,4 @@ const UserSchema = new Schema({
     }
 });
 
-module.exports = User = mongoose.model('Users', UserSchema);
+module.exports = User = mongoose.model('User', UserSchema, 'Users');

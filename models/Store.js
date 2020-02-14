@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//Create Schema
+// Create Schema
 const StoreSchema = new Schema({
     _id: {
         type: Schema.Types.ObjectId,
@@ -11,9 +11,9 @@ const StoreSchema = new Schema({
         type: String,
         required: true
     },
-    Products:[{
+    Products: [{
         type: Schema.Types.ObjectId,
-        ref: "Products",
+        ref: "Product",
         required: false
     }],
     city: {
@@ -26,4 +26,4 @@ const StoreSchema = new Schema({
     }
 });
 
-module.exports = Store = mongoose.model('Stores', StoreSchema);
+module.exports = Store = mongoose.model('Store', StoreSchema, "Stores");
