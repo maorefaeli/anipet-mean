@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     },
     isAdmin: {
         type: String,
-        required: true
+        required: false
     },
     favorite: {
         type: String,

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const keys = require('../config/keys');
+const validators = require('../utils/validators');
 
 // Load User model
 const User = require('../models/User');
@@ -12,24 +13,33 @@ router.get('/test', (req, res) => res.json({"msg": "Users works"}));
 // @access Public
 
 router.post('/register', async (req, res) => {
-    let user = await User.findOne({ name: req.body.name });
+    const { name, password } = req.body;
+
+    if (!validators.isStringWithValue(name)) {
+        return res.status(400).json({"error": "name cannot be empty"})
+    }
+
+    if (!validators.isStringWithValue(password)) {
+        return res.status(400).json({"error": "password cannot be empty"})
+    }
+
+    let user = await User.findOne({ name: name });
 
     if (user) {
         return res.status(400).json({"error": "user already exist"});
-    } else {
-        user = new User({
-            name: req.body.name,
-            password: req.body.password,
-            isAdmin: req.body.isAdmin
-        });
+    }
 
-        try {
-            user = await user.save();
-            res.json(user);
-        } catch (error) {
-            console.log(error);
-            res.status(400).json({"error": "problem saving user"})
-        }
+    user = new User({
+        name: name,
+        password: password,
+    });
+
+    try {
+        user = await user.save();
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({"error": "problem saving user"})
     }
 });
 
@@ -38,8 +48,15 @@ router.post('/register', async (req, res) => {
 // @access Public
 
 router.post('/login', async (req, res) => {
-    const name = req.body.name;
-    const password = req.body.password;
+    const { name, password } = req.body;
+    
+    if (!validators.isStringWithValue(name)) {
+        return res.status(400).json({"error": "name cannot be empty"})
+    }
+
+    if (!validators.isStringWithValue(password)) {
+        return res.status(400).json({"error": "password cannot be empty"})
+    }
     
     // find user by name
     const user = await User.findOne({ name });
