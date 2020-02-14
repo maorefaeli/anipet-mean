@@ -10,6 +10,14 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    isAdmin: {
+        type: String,
+        required: true
+    },
+    favorite: {
+        type: String,
+        required: false
     }
 });
 

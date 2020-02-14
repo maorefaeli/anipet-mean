@@ -19,7 +19,8 @@ router.post('/register', (req, res) => {
             } else {
                 const newUser = new User({
                     name: req.body.name,
-                    password: req.body.password
+                    password: req.body.password,
+                    isAdmin: req.body.isadmin
                 });
                 newUser.save()
                     .then(user => res.json(user))
@@ -40,31 +41,14 @@ router.post('/login', (req, res) => {
         .then(user => {
             //Check for user
             if(!user) {
-                errors.name = 'User not found';
                 return res.status(404).json({"error":"user not found"});
             }
-            //Check password
-            bcrypt.compare(password, user.password)
-                .then(isMatch => {
-                    if (isMatch) {
-                        //User matched
-                        const payload = { id: user.id, name: user.name, avatar: user.avatar}; //Create JWT Payload
-                        //Sign Token
-                        jwt.sign(
-                            payload,
-                            keys.secretOrKey,
-                            { expiresIn: 3600 }, 
-                            (err, token) => {
-                                res.json({
-                                    success: true,
-                                    token: 'Bearer ' + token
-                                });
-                            });
-                    } else {
-                        errors.passowrd = 'Password incorrect';
-                        return res.status(400).json(errors);
-                    }
-                });
+            if (password == user.password) {
+                return res.status(200).json({"success":"User found"})
+            } else {
+                return res.status(400).json({"error":"wrong password"})
+            }
         });
 });
+
 module.exports = router;
