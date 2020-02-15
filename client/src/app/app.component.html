@@ -18,19 +18,33 @@
       <img class="rounded float-left logo" src="../assets/Screen%20Shot%202020-01-22%20at%2012.25.10.png"
            alt="logo"/>
     </div>
-    <div class="col-8 buttons">
-      <ng-template #signIn>
-        <sign-in></sign-in>
-      </ng-template>
-      <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
-              [ngbPopover]="signIn" [autoClose]="'outside'" popoverTitle="Sign In">
-        Sign In
-      </button>
-      <ng-template #signUp>
-        <sign-up></sign-up>
-      </ng-template>
-      <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
-            [ngbPopover]="signUp" [autoClose]="'outside'" popoverTitle="Sign Up">Sign up</button>
+    <div class="col-6 weather">
+      <div class="row weather title">
+        It is now {{ temperature }} degrees
+      </div>
+      <img src="">
+    </div>
+    <div class="col-2 buttons user-management ">
+      <div class="row">
+          <div class="greeting" *ngIf="getUsername()">
+            Hello, {{ getUsername() }}!
+          </div>
+      </div>
+      <div class="row">
+        <ng-template #signIn>
+          <sign-in></sign-in>
+        </ng-template>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
+                [ngbPopover]="signIn" [autoClose]="'outside'" popoverTitle="Sign In">
+          Sign In
+        </button>
+        <ng-template #signUp>
+          <sign-up></sign-up>
+        </ng-template>
+        <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
+                [ngbPopover]="signUp" [autoClose]="'outside'" popoverTitle="Sign Up">Sign up
+        </button>
+      </div>
     </div>
   </div>
   <div class="row">
