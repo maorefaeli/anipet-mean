@@ -19,10 +19,13 @@ const Store = require('../models/Store');
 // @desc Add store
 // @access Public
 router.post('/add', async (req, res) => {
+    const {name, lon, lat} = req.body;
     const newStore = new Store ({
-        storeAdmin: req.body.storeAdmin,
-        city: req.body.city,
-        address: req.body.address
+        name: name,
+        location: {
+            type: "Point",
+            coordinates: [lon, lat]
+        }
     });
     try {
         store = await newStore.save();
@@ -39,10 +42,7 @@ router.post('/add', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         stores = await Store.find();
-        if(!stores){
-            return res.status(400).json({"error":"There are not stores"});
-        }
-        return res.json(stores);
+        return res.json(stores || []);
     } catch (error) {
         console.log(error);
         res.status(400).json({"error":"Problem getting stores"})
