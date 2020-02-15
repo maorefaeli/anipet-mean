@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
 //  @route DELETE api/products/:product_id
 //  @desc Delete specific product
 //  @access Public
-router.delete('/', async (req, res) => {
+router.delete('/delete', async (req, res) => {
     try {
         result = await Product.findByIdAndRemove({"_id":req.body.product_id});
         products = await Product.find();
@@ -69,11 +69,26 @@ router.post('/edit', async (req, res) => {
     }
 });
 
+//  @route POST api/products/:product_id
+//  @desc Edit specific product
+//  @access Public
+router.post('/search', async (req, res) => {
+    const {name, weightInKilo, price} = req.body;
+    try {
+        products = await Product.find();
+    if (name) {
+        products = products.filter( function(product){return (product.name===name);} );
+    }
+    if (weightInKilo) {
+        products = products.filter( function(product){return (product.weightInKilo===weightInKilo);} );
+    }
+    if (price) {
+        products = products.filter( function(product){return (product.price===price);} );
+    }
+    return res.json(products); 
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({"error":"Problem searching products"})
+    }    
+});
 module.exports = router;
-
-
-
-// User.findOne({<criteria>}).then(theUser => {
-//     theUser.property.subpropertyarray.push(<new value>);
-//     return theUser.save();
-// }
