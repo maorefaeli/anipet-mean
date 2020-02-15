@@ -19,10 +19,13 @@ const Store = require('../models/Store');
 // @desc Add store
 // @access Public
 router.post('/add', async (req, res) => {
+    const {name, lon, lat} = req.body;
     const newStore = new Store ({
-        storeAdmin: req.body.storeAdmin,
-        city: req.body.city,
-        address: req.body.address
+        name: name,
+        location: {
+            type: "Point",
+            coordinates: [lon, lat]
+        }
     });
     try {
         store = await newStore.save();
@@ -61,23 +64,5 @@ router.get('/stores/:store_id', async (req, res) => {
         res.status(400).json({"error":"Problem getting store details"})
     }
 });
-
-// @route POST api/stores/products
-// @desc Add products to profile
-// @access Public
-router.post(
-    '/products', async (req, res) => {
-        let store = await Store.findOne({ _id: req.store_id });
-        try {
-            
-        }
-        Store.findOne({ store: req.store_id })
-            .then(store => {
-                // Add to products array
-                store.Products.unshift(newExp);
-                profile.save().then(profile => res.json(profile));
-            });
-    });
-
 
 module.exports = router;
