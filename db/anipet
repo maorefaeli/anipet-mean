@@ -8,5 +8,5 @@ elif [[ $1 == 'stop' ]]; then
     echo 'Anipet db is down'
 
 elif [[ $1 == 'wipe' ]]; then
-    mongorestore --gzip --noIndexRestore --archive=dump/MinimalAnipet.gz
+    mongorestore --drop --gzip --noIndexRestore --archive=dump/MinimalAnipet.gz
 fi
