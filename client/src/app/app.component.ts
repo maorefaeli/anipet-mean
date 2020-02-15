@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ContentChild, ViewChild, ViewContainerRef} from '@angular/core';
+import {NgbPopover} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'anipet';
+  hidden = true;
 }

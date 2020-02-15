@@ -1,0 +1,28 @@
+<form>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" [value]="username" class="form-control" id="username" name="name" ngModel #name="ngModel" required minlength="4">
+    <div *ngIf="name.invalid && name.touched" class="alert alert-danger">
+      <div *ngIf="name.errors.required">
+        Name is required.
+      </div>
+      <div *ngIf="name.errors.minlength">
+        Name must be at least 4 charactersF long.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" [value]="pass" class="form-control" id="password" name="password" ngModel #password="ngModel" required minlength="6">
+    <div *ngIf="password.invalid && password.touched" class="alert alert-danger">
+      <div *ngIf="password.errors.required">
+        Password is required.
+      </div>
+      <div *ngIf="password.errors.minlength">
+        Password must be at least 6 characters long.
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="submit()">Submit</button>
+</form>
+
