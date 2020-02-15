@@ -7,4 +7,6 @@ elif [[ $1 == 'stop' ]]; then
     kill -2 `pgrep mongo`
     echo 'Anipet db is down'
 
+elif [[ $1 == 'wipe' ]]; then
+    mongorestore --drop --gzip --noIndexRestore --archive=dump/MinimalAnipet.gz
 fi

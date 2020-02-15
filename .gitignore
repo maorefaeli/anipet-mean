@@ -43,4 +43,5 @@ testem.log
 
 # System Files
 .DS_Store
+node_modules/
 Thumbs.db
