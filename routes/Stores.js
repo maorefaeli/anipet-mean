@@ -5,8 +5,6 @@ const keys = require('../config/keys');
 // Load Store model
 const Store = require('../models/Store');
 
-router.get('/test', (req, res) => res.json({"msg": "Stores works"}));
-
 // @route POST api/stores/add
 // @desc Add store
 // @access Public

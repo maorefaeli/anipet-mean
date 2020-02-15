@@ -7,8 +7,6 @@ const crypto = require('../utils/crypto');
 // Load User model
 const User = require('../models/User');
 
-router.get('/test', (req, res) => res.json({"msg": "Users works"}));
-
 // @route POST api/users/register
 // @desc Register user
 // @access Public
