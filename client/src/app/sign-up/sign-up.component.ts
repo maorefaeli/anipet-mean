@@ -7,8 +7,8 @@ import {FormBuilder, FormControl, FormGroup, NgControl} from "@angular/forms";
   styleUrls: ['./sign-up.component.sass']
 })
 export class SignUpComponent {
-  private username = "";
-  private pass = "";
+  username = "";
+  pass = "";
 
   constructor() {
   }

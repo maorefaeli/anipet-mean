@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import { Component } from "@angular/core";
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'sign-in',
@@ -10,7 +11,11 @@ export class SignInComponent {
     username = "";
     pass = "";
 
-    public submit() {
+    constructor(private cookieService: CookieService) {
+    }
 
+    public submit(username, password) {
+      document.getElementById("username").textContent = "";
+      this.cookieService.set("username", username);
     }
 }
