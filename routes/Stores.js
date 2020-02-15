@@ -5,6 +5,16 @@ const keys = require('../config/keys');
 // Load Store model
 const Store = require('../models/Store');
 
+/* location example
+{
+  "type" : "Point",
+  "coordinates" : [
+    -122.5,
+    37.7
+  ]
+}
+*/
+
 // @route POST api/stores/add
 // @desc Add store
 // @access Public

@@ -13,11 +13,6 @@ const PurchaseSchema = new Schema({
         ref: "Product",
         required: true
     },
-    storeId: {
-        type: Schema.Types.ObjectId,
-        ref: "Store",
-        required: true
-    },
     date: {
         type: Date,
         required: true

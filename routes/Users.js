@@ -12,7 +12,7 @@ const User = require('../models/User');
 // @access Public
 
 router.post('/register', async (req, res) => {
-    const { name, password, isSeller } = req.body;
+    const { name, password } = req.body;
 
     if (!validators.isStringWithValue(name)) {
         return res.status(400).json({"error": "name cannot be empty"});
@@ -20,10 +20,6 @@ router.post('/register', async (req, res) => {
 
     if (!validators.isStringWithValue(password)) {
         return res.status(400).json({"error": "password cannot be empty"});
-    }
-
-    if (validators.isDefined(isSeller) && !validators.isBoolean(isSeller)) {
-        return res.status(400).json({"error": "isSeller must be boolean"});
     }
 
     let user = await User.findOne({ name: name });
@@ -36,10 +32,6 @@ router.post('/register', async (req, res) => {
         name: name,
         password: crypto.encodeSHA256(password)
     });
-
-    if (isSeller) {
-        user.role = "seller";
-    }
 
     try {
         user = await user.save();
