@@ -54,4 +54,27 @@ router.get('/stores/:store_id', async (req, res) => {
     }
 });
 
+// @route POST api/stores/:store_id
+// @desc Edit store by store ID
+// @access Public
+router.post('/stores/:store_id', async (req, res) => {
+    try {
+        storeDetails = await Store.findOne({ store: req.params.store_id });
+        return res.json(storeDetails);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({"error":"Problem getting store details"})
+    }
+});
+
+if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = { address: "Valley 345" };
+  var newvalues = { $set: {name: "Mickey", address: "Canyon 123" } };
+  dbo.collection("customers").updateOne(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+    console.log("1 document updated");
+    db.close();
+  });
+});
 module.exports = router;
