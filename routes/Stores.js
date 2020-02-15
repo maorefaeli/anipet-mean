@@ -42,10 +42,7 @@ router.post('/add', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         stores = await Store.find();
-        if(!stores){
-            return res.status(400).json({"error":"There are not stores"});
-        }
-        return res.json(stores);
+        return res.json(stores || []);
     } catch (error) {
         console.log(error);
         res.status(400).json({"error":"Problem getting stores"})

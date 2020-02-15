@@ -19,6 +19,8 @@
   "dependencies": {
     "bcrypt": "^3.0.8",
     "express": "^4.17.1",
-    "mongoose": "^5.9.0"
+    "libsvm-js": "^0.2.1",
+    "mongoose": "^5.9.0",
+    "node-gyp": "^6.1.0"
   }
 }
