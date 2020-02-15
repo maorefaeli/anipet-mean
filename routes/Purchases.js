@@ -9,11 +9,11 @@ const Purchase = require('../models/Purchase');
 // @desc Add purchase
 // @access Public
 router.post('/add', async (req, res) => {
-    const {userId, productId, date} = req.body;
+    const {userId, productId} = req.body;
     const newPurchase = new Purchase ({
         userId: userId,
         productId: productId,
-        date: date
+        date: new Date()
     });
     try {
         purchase = await newPurchase.save();
@@ -29,7 +29,7 @@ router.post('/add', async (req, res) => {
 // @access Public
 router.get('/', async (req, res) => {
     try {
-        purchases = await Product.find();
+        purchases = await Purchase.find();
         if(!purchases){
             return res.status(400).json({"error":"There are not purchases"});
         }

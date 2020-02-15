@@ -15,7 +15,7 @@ const PurchaseSchema = new Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: false
     },
 });
 
