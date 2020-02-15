@@ -8,7 +8,7 @@ const purchases = require('./routes/Purchases');
 const stores = require('./routes/Stores');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -21,15 +21,15 @@ mongoose
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
-app.get('/', (req, res) => {
+app.get('/api/test', (req, res) => {
     res.send({msg: 'hello! Server is up'});
 });
 
 //  Use Routes
-app.use('/users', users)
-app.use('/products', products)
-app.use('/purchases', purchases)
-app.use('/stores', stores)
+app.use('/api/users', users)
+app.use('/api/products', products)
+app.use('/api/purchases', purchases)
+app.use('/api/stores', stores)
 
 // Default request catcher
 app.all('*', (req, res) => {
