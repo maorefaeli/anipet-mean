@@ -75,15 +75,13 @@ app.get('/', (req, res) => {
     res.send({msg: 'hello! Server is up'});
 });
 
-//  Use Routes
+// Use Routes
 app.use('/users', users)
 app.use('/products', products)
 app.use('/purchases', purchases)
 app.use('/stores', stores)
 
-// app.post('/login', passport.authenticate('local', { successRedirect: '/',
-//                                                     failureRedirect: '/login' }));
-
+// Handle login
 app.post('/login', passport.authenticate('local', { failWithError: true }),
     function(req, res, next) {
         // handle success
@@ -95,6 +93,7 @@ app.post('/login', passport.authenticate('local', { failWithError: true }),
     }
 );
 
+// Handle logout
 app.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
