@@ -14,8 +14,14 @@ export class SignInComponent {
     constructor(private cookieService: CookieService) {
     }
 
-    public submit(username, password) {
-      document.getElementById("username").textContent = "";
-      this.cookieService.set("username", username);
+    public submit() {
+      let username = (document.getElementById("username") as HTMLInputElement);
+      this.cookieService.set("username", username.value);
+      let password = (document.getElementById("password") as HTMLInputElement);
+
+      // validate
+
+      username.value = '';
+      password.value = '';
     }
 }
