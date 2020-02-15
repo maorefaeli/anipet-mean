@@ -41,4 +41,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// @route GET api/stores/:store_id
+// @desc Get store by store ID
+// @access Public
+router.get('/stores/:store_id', async (req, res) => {
+    try {
+        storeDetails = await Store.findOne({ store: req.params.store_id });
+        return res.json(storeDetails);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({"error":"Problem getting store details"})
+    }
+});
+
 module.exports = router;
