@@ -1,9 +1,12 @@
+const crypto = require('../utils/crypto');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const encryptPassword = (password) => crypto.encodeSHA256(password);
+
 // Create Schema
 const UserSchema = new Schema({
-    name: {
+    username: {
         type: String,
         required: true
     },
@@ -16,5 +19,13 @@ const UserSchema = new Schema({
         required: false
     }
 });
+
+UserSchema.methods.isPasswordValid = function(password) {
+    return this.password === encryptPassword(password);
+};
+
+UserSchema.statics.encryptPassword = function(password) {
+    return encryptPassword(password);
+};
 
 module.exports = User = mongoose.model('User', UserSchema, 'Users');
