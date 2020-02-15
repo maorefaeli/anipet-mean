@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const keys = require('../config/keys');
 const validators = require('../utils/validators');
+const crypto = require('../utils/crypto');
 
 // Load User model
 const User = require('../models/User');
@@ -35,7 +36,7 @@ router.post('/register', async (req, res) => {
 
     user = new User({
         name: name,
-        password: password
+        password: crypto.encodeSHA256(password)
     });
 
     if (isSeller) {
@@ -74,7 +75,7 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({"error": "User not found"});
     }
 
-    if (password !== user.password) {
+    if (crypto.encodeSHA256(password) !== user.password) {
         return res.status(400).json({"error": "wrong password"});
     }
 

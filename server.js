@@ -6,7 +6,6 @@ const users = require('./routes/Users');
 const products = require('./routes/Products');
 const purchases = require('./routes/Purchases');
 const stores = require('./routes/Stores');
-const foodsources = require('./routes/FoodSources');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -31,7 +30,6 @@ app.use('/users', users)
 app.use('/products', products)
 app.use('/purchases', purchases)
 app.use('/stores', stores)
-app.use('/foodsources', foodsources)
 
 // Default request catcher
 app.all('*', (req, res) => {
