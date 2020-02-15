@@ -11,12 +11,14 @@ import { StoresComponent } from './stores/stores.component';
 import { CookieService } from 'ngx-cookie-service';
 import { SignInModule } from "./sign-in/sign-in.module";
 import { HttpClientModule} from "@angular/common/http";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
-    StoresComponent
+    StoresComponent,
+    HomeComponent,
   ],
   imports: [
     FormsModule,
@@ -24,7 +26,7 @@ import { HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     NgbModule,
     SignInModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     CookieService,

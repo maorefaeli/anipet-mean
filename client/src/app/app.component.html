@@ -12,6 +12,8 @@
   <title>Hello, world!</title>
 </head>
 <body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0&appId=118638832234224&autoLogAppEvents=1"></script>
 <div class="container">
   <div class="row">
     <div class="col-4">
@@ -19,16 +21,20 @@
            alt="logo"/>
     </div>
     <div class="col-6 weather">
-      <div class="row weather title">
+      <div class="row weather-title">
         It is now {{ temperature }} degrees
       </div>
-      <img src="">
+      <div class="row weather-content">
+        <img src="../assets/Icons__cold.png" class="weather-img" *ngIf="temperature <= 15">
+        <img src="../assets/nice-weather.jpg" class="weather-img" *ngIf="temperature > 15 && temperature < 25">
+        <img src="../assets/hotweather.jpg" class="weather-img" *ngIf="temperature >= 25">
+      </div>
     </div>
     <div class="col-2 buttons user-management ">
       <div class="row">
-          <div class="greeting" *ngIf="getUsername()">
-            Hello, {{ getUsername() }}!
-          </div>
+        <div class="greeting" *ngIf="getUsername()">
+          Hello, {{ getUsername() }}!
+        </div>
       </div>
       <div class="row">
         <ng-template #signIn>
@@ -64,9 +70,12 @@
     </ul>
   </div>
 </div>
-<div>
-
-</div>
+<router-outlet>
+  <app-home></app-home>
+</router-outlet>
+<footer class="rights">
+  <p>all rights reserved to Maor Refaeli, Kobi Avshalom and Shai Lieberman</p>
+</footer>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
