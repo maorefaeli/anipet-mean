@@ -5,7 +5,15 @@ const keys = require('../config/keys');
 // Load Store model
 const Store = require('../models/Store');
 
-router.get('/test', (req, res) => res.json({"msg": "Stores works"}));
+/* location example
+{
+  "type" : "Point",
+  "coordinates" : [
+    -122.5,
+    37.7
+  ]
+}
+*/
 
 // @route POST api/stores/add
 // @desc Add store

@@ -3,23 +3,20 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const StoreSchema = new Schema({
-    storeAdmin: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true
-    },
-    Products: [{
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-        required: false
-    }],
-    city: {
+    name: {
         type: String,
         required: true
     },
-    address: {
-        type: String,
-        required: true
+    location: {
+        type: {
+          type: String,
+          enum: ['Point'], // 'location.type' must be 'Point'
+          required: true
+        },
+        coordinates: {
+          type: [Number], // longitude, latitude
+          required: true
+        }
     }
 });
 
