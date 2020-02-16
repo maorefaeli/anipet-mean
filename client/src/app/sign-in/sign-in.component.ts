@@ -19,12 +19,5 @@ export class SignInComponent {
       let username = (document.getElementById("username") as HTMLInputElement).value;
       let password = (document.getElementById("password") as HTMLInputElement).value;
 
-      // validate
-      let data = {username, password};
-      const options = {headers: {'Content-Type': 'application/json'}};
-      this.httpClient.post('api/login', JSON.stringify(data), options).subscribe(
-        (t) => console.info(t),
-        e => console.log(e)
-      );
     }
 }

@@ -12,6 +12,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { SignInModule } from "./sign-in/sign-in.module";
 import { HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
+import { MapComponent } from './map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { HomeComponent } from './home/home.component';
     SignUpComponent,
     StoresComponent,
     HomeComponent,
+    MapComponent,
   ],
   imports: [
     FormsModule,
@@ -27,6 +30,9 @@ import { HomeComponent } from './home/home.component';
     NgbModule,
     SignInModule,
     HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCMATjaKa93lheSTMFtmUvseVWcj1o61uw'
+    })
   ],
   providers: [
     CookieService,
@@ -34,7 +40,6 @@ import { HomeComponent } from './home/home.component';
   ],
   bootstrap: [
     AppComponent,
-    SignInComponent,
   ]
 })
 export class AppModule { }

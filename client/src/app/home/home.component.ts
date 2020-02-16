@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-declare var google: any;
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +6,7 @@ declare var google: any;
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent {
-  @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
-
+  stores = {1: {"latitude": "32.088250", 'longitude': "34.805300", "opacity":"0"}, 2: {"latitude":"32.081820", "longitude":"34.815030", "opacity":"0"}};
   constructor() { }
 
-  }
+}

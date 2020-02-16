@@ -1,0 +1,13 @@
+<agm-map
+  [latitude]="stores[0].latitude"
+  [longitude]="stores[0].longitude"
+  [zoom]="14">
+  <agm-marker *ngFor="let store of stores"
+              [latitude]="store.latitude"
+              [longitude]="store.longitude"
+              [opacity]="store.opacity"
+              [markerDraggable]="false">
+
+  </agm-marker>
+</agm-map>
+
