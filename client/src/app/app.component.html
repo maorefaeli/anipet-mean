@@ -33,7 +33,7 @@
           Hello, {{ getUsername() }}!
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!getUsername()">
         <ng-template #signIn>
           <sign-in></sign-in>
         </ng-template>

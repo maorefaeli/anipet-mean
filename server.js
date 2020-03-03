@@ -85,8 +85,7 @@ app.use('/stores', stores)
 app.post('/login', passport.authenticate('local', { failWithError: true }),
     function(req, res, next) {
         // handle success
-        // return res.redirect('/');
-        return res.json("ok");
+        return res.json({ isAdmin: req.user.isAdmin });
     },
     function(err, req, res, next) {
         // handle error
