@@ -12,7 +12,7 @@ const User = require('../models/User');
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
 
-    if (!validators.isStringWithValue(name)) {
+    if (!validators.isStringWithValue(username)) {
         return res.status(400).json({"error": "name cannot be empty"});
     }
 
@@ -32,8 +32,8 @@ router.post('/register', async (req, res) => {
     });
 
     try {
-        user = await user.save();
-        res.json(user);
+        await user.save();
+        res.json();
     } catch (error) {
         console.log(error);
         res.status(400).json({"error": "problem saving user"})

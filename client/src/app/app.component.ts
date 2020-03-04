@@ -1,7 +1,7 @@
-import {Component, ContentChild, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
-import {Observable, Subject} from "rxjs";
+import { UserService } from './_services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,14 @@ export class AppComponent implements OnInit {
   title = 'anipet';
   temperature = '20';
 
-  constructor(private cookieService: CookieService, private httpClient: HttpClient) {
+  constructor(
+    private cookieService: CookieService,
+    private httpClient: HttpClient,
+    private userService: UserService) {
   }
 
   public getUsername() {
-    return this.cookieService.get("username");
+    return this.userService.currentUser().username;
   }
 
   public getWeather() {
