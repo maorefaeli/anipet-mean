@@ -16,10 +16,10 @@ router.get('/', auth.isLoggedIn, async (req, res) => {
         query.name = { $regex : `.*${name}.*` };
     }
     if (maxWeight) {
-        query.weightInKilo = { $le: maxWeight };
+        query.weightInKilo = { $le: Number(maxWeight) };
     }
     if (maxPrice) {
-        query.price = { $le: maxPrice };
+        query.price = { $le: Number(maxPrice) };
     }
 
     try {
