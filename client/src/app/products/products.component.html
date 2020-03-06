@@ -1,1 +1,41 @@
-<p>products works!</p>
+<div class="container row">
+  <div class="margin col-md-1"></div>
+  <div class="products-container col-md-8">
+    <div class="row food-row" *ngFor="let product of products | async">
+      <div class="product">
+        <app-product [product]="product"></app-product>
+      </div>
+    </div>
+  </div>
+  <div class="filters-container col-md-3">
+    <div class="producer-title title">Producer</div>
+      <div class="row filter-row" *ngFor="let producer of producers">
+        <label>
+          <input #checkbox type="checkbox" (click)="filterProducer(producer, checkbox.checked)">
+          {{ producer }}
+        </label>
+      </div>
+    <div class="row space"></div>
+    <div class="weight-title title">Weight</div>
+    <div class="row filter-row" *ngFor="let weight of weights">
+      <label>
+        <input #checkbox type="checkbox" >
+        {{ weight }}
+      </label>
+    </div>
+    <div class="row space"></div>
+    <div class="price-title title">Price</div>
+    <div class="row filter-row">
+      <label>
+        from
+        <input class="price-input" type="text">
+        to
+        <input class="price-input" type="text">
+      </label>
+    </div>
+    <div class="row button-row">
+      <button class="btn btn-dark filter-btn">Clear</button>
+      <button class="btn btn-dark filter-btn">Search</button>
+    </div>
+  </div>
+</div>

@@ -17,6 +17,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {FacebookModule} from "ngx-facebook";
 import { ProductsComponent } from './products/products.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { ProductComponent } from './products/product/product.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     SignOutComponent,
     ProductsComponent,
     MyOrdersComponent,
+    ProductComponent,
   ],
   imports: [
     FormsModule,
@@ -47,7 +49,7 @@ const appRoutes: Routes = [
     FacebookModule,
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
-      apiKey: 'key'
+      apiKey: 'AIzaSyBeXrVLeXmsD_RUXmg7J_HwlUCTnzSXxMw'
     })
   ],
   providers: [
