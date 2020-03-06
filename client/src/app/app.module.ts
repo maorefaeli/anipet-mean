@@ -16,9 +16,14 @@ import { SignOutComponent } from './sign-out/sign-out.component';
 import {RouterModule, Routes} from "@angular/router";
 import {FacebookModule} from "ngx-facebook";
 import { ProductsComponent } from './products/products.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent }
+  { path: '', component: HomeComponent},
+  { path: 'home', component: HomeComponent },
+  { path: 'orders', component: MyOrdersComponent },
+  { path: 'stores', component: StoresComponent },
+  { path: 'products', component: ProductsComponent}
 ];
 
 @NgModule({
@@ -29,6 +34,7 @@ const appRoutes: Routes = [
     MapComponent,
     SignOutComponent,
     ProductsComponent,
+    MyOrdersComponent,
   ],
   imports: [
     FormsModule,
