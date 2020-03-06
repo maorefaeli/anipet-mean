@@ -13,6 +13,13 @@ import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { SignUpModule } from './sign-up/sign-up.module';
 import { SignOutComponent } from './sign-out/sign-out.component';
+import {RouterModule, Routes} from "@angular/router";
+import {FacebookModule} from "ngx-facebook";
+import { ProductsComponent } from './products/products.component';
+
+const appRoutes: Routes = [
+  { path: 'home', component: HomeComponent }
+];
 
 @NgModule({
   declarations: [
@@ -21,6 +28,7 @@ import { SignOutComponent } from './sign-out/sign-out.component';
     HomeComponent,
     MapComponent,
     SignOutComponent,
+    ProductsComponent,
   ],
   imports: [
     FormsModule,
@@ -30,8 +38,10 @@ import { SignOutComponent } from './sign-out/sign-out.component';
     SignInModule,
     SignUpModule,
     HttpClientModule,
+    FacebookModule,
+    RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCMATjaKa93lheSTMFtmUvseVWcj1o61uw'
+      apiKey: 'key'
     })
   ],
   providers: [
