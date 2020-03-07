@@ -19,4 +19,10 @@ const PurchaseSchema = new Schema({
     },
 });
 
+PurchaseSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) { delete ret._id }
+});
+
 module.exports = Purchase = mongoose.model('Purchase', PurchaseSchema, "Purchases");

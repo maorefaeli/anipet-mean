@@ -9,15 +9,21 @@ const StoreSchema = new Schema({
     },
     location: {
         type: {
-          type: String,
-          enum: ['Point'], // 'location.type' must be 'Point'
-          required: true
+            type: String,
+            enum: ['Point'], // 'location.type' must be 'Point'
+            required: true
         },
         coordinates: {
-          type: [Number], // longitude, latitude
-          required: true
+            type: [Number], // longitude, latitude
+            required: true
         }
     }
+});
+
+StoreSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) { delete ret._id }
 });
 
 module.exports = Store = mongoose.model('Store', StoreSchema, "Stores");
