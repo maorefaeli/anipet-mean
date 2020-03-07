@@ -4,7 +4,7 @@ import { UserService } from '../_services/user.service';
 @Component({
   selector: 'sign-out',
   templateUrl: './sign-out.component.html',
-  styleUrls: ['./sign-out.component.css']
+  styleUrls: ['./sign-out.component.scss']
 })
 export class SignOutComponent {
 
@@ -12,6 +12,6 @@ export class SignOutComponent {
 
   onSignOut() {
     this.userService.logout();
-    location.reload();
+    location.href = "/";
   }
 }
