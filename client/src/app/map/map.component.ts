@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import Store from '../_models/store';
 
 @Component({
   selector: 'app-map',
@@ -6,26 +7,22 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./map.component.sass']
 })
 export class MapComponent implements OnInit {
-  @Input() stores;
+  @Input() stores: Store[];
 
   constructor() {
   }
 
-  ngOnInit() {
-    this.stores = [new Store(32.088250, 34.805300, 1),
-      new Store(32.081820, 34.815030, 1)];
-    let a = 0;
+  ngOnInit(): void {
+    this.stores = [];
   }
-}
 
-class Store {
-  public longitude;
-  public latitude;
-  public opacity;
-
-  constructor(latitude, longitude, opacity) {
-    this.longitude = longitude;
-    this.latitude = latitude;
-    this.opacity = opacity;
+  get mainStore() {
+    const defaultStore = new Store();
+    defaultStore.name = '';
+    defaultStore.location = {
+      type: 'Point',
+      coordinates: [34.82510580, 32.07536730]
+    };
+    return this.stores.length ? this.stores[0] : defaultStore;
   }
 }

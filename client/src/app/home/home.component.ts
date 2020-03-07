@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { StoreService } from '../_services/store.service';
+import Store from '../_models/store';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass']
 })
-export class HomeComponent {
-  stores = {1: {"latitude": "32.088250", 'longitude': "34.805300", "opacity":"0"}, 2: {"latitude":"32.081820", "longitude":"34.815030", "opacity":"0"}};
-  constructor() { }
-
+export class HomeComponent implements OnInit {
+  stores: Store[];
+  
+  constructor(
+    private storeService: StoreService
+  ) { }
+  
+  ngOnInit(): void {
+    this.storeService.get().subscribe(data => this.stores = data, error => this.stores = []);
+  } 
 }
