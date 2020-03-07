@@ -5,26 +5,16 @@ const auth = require('../utils/auth');
 // Load Store model
 const Store = require('../models/Store');
 
-/* location example
-{
-  "type" : "Point",
-  "coordinates" : [
-    -122.5,
-    37.7
-  ]
-}
-*/
-
 // @route POST api/stores/add
 // @desc Add store
 // @access Public
 router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
-    const { name, lon, lat } = req.body;
+    const { name, lng, lat } = req.body;
     let newStore = new Store ({
         name: name,
         location: {
             type: "Point",
-            coordinates: [lon, lat]
+            coordinates: [lng, lat]
         }
     });
     try {

@@ -11,10 +11,10 @@ export class StoreService {
     };
 
     get() {
-        return this.http.get<Store[]>('api/stores/get');
+        return this.http.get<Store[]>('api/stores');
     }
 
-    add(name: string, lon: number, lat: number) {
-        return this.http.post<Store>('api/stores/add', JSON.stringify({ name, lon, lat }), this.httpOptions);
+    add(name: string, lng: number, lat: number) {
+        return this.http.post<Store>('api/stores/add', JSON.stringify({ name, lng, lat }), this.httpOptions);
     }
 }

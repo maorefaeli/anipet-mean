@@ -21,7 +21,7 @@ export class ProductService {
         if (maxPrice) {
             params['maxPrice'] = maxPrice;
         }
-        return this.http.get<Product[]>('api/products/get', { params });
+        return this.http.get<Product[]>('api/products', { params });
     }
 
     add(name: string, weightInKilo: number, price: number) {

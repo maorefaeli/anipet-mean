@@ -12,5 +12,6 @@ export class SignOutComponent {
 
   onSignOut() {
     this.userService.logout();
+    location.reload();
   }
 }

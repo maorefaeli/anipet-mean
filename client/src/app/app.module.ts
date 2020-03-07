@@ -22,11 +22,11 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent },
   { path: 'orders', component: MyOrdersComponent },
   { path: 'stores', component: StoresComponent },
-  { path: 'products', component: ProductsComponent}
+  { path: 'products', component: ProductsComponent},
+  { path: '**', redirectTo: 'home'},
 ];
 
 @NgModule({

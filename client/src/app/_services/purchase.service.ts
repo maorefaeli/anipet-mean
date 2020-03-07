@@ -11,7 +11,7 @@ export class PurchaseService {
     };
 
     get() {
-        return this.http.get<Purchase[]>('api/purchases/get');
+        return this.http.get<Purchase[]>('api/purchases');
     }
 
     add(productId: string) {
