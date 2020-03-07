@@ -29,12 +29,12 @@
     </div>
     <div class="col-2 buttons user-management ">
       <div class="row">
-        <div class="greeting" *ngIf="getUsername()">
+        <div class="greeting" *ngIf="isLoggedIn()">
           Hello, {{ getUsername() }}!
           <sign-out></sign-out>
         </div>
       </div>
-      <div class="row" *ngIf="!getUsername()">
+      <div class="row" *ngIf="!isLoggedIn()">
         <ng-template #signIn>
           <sign-in></sign-in>
         </ng-template>
@@ -53,26 +53,21 @@
     </div>
   </div>
   <div class="row">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a routerLink="/home" class="nav-link active" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="orders">My Orders</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="products">Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="stores">Stores</a>
-      </li>
-    </ul>
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link
+        *ngFor="let link of navLinks"
+        [routerLink]="link.path"
+        routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">
+        {{link.label}}
+      </a>
+    </nav>
   </div>
 </div>
 <router-outlet>
 </router-outlet>
 <footer class="rights">
-  <p>all rights reserved to Maor Refaeli, Kobi Avshalom and Shai Lieberman</p>
+  <p>&copy; All rights reserved to Maor Refaeli, Kobi Avshalom and Shai Lieberman</p>
 </footer>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

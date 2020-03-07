@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from './_services/user.service';
+import { UserService, Role } from './_services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +10,24 @@ import { UserService } from './_services/user.service';
 export class AppComponent implements OnInit {
   title = 'anipet';
   temperature = '20';
+  private allNavLinks = [
+    { path: 'home', label: 'Home', roles: [Role.Guest, Role.User, Role.Admin] },
+    { path: 'orders', label: 'Orders', roles: [Role.User, Role.Admin] },
+    { path: 'products', label: 'Products', roles: [Role.User, Role.Admin] },
+    { path: 'stores', label: 'Stores', roles: [Role.Admin] },
+  ];
 
   constructor(
-    private cookieService: CookieService,
     private httpClient: HttpClient,
     private userService: UserService) {
+  }
+
+  public get navLinks() {
+    return this.allNavLinks.filter(link => link.roles.includes(this.userService.currentUser().role));
+  }
+
+  public isLoggedIn() {
+    return this.userService.currentUser().role !== Role.Guest;
   }
 
   public getUsername() {

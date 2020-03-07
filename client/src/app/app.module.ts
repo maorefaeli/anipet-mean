@@ -18,6 +18,8 @@ import {FacebookModule} from "ngx-facebook";
 import { ProductsComponent } from './products/products.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { ProductComponent } from './products/product/product.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -42,6 +44,8 @@ const appRoutes: Routes = [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
+    MatTabsModule,
+    BrowserAnimationsModule,
     NgbModule,
     SignInModule,
     SignUpModule,

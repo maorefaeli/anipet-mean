@@ -5,9 +5,15 @@ import { map } from 'rxjs/operators';
 
 const USERNAME_COOKIE_NAME = 'user';
 
+export const enum Role {
+    Guest,
+    User,
+    Admin
+}
+
 interface User {
     username: string;
-    isAdmin: boolean;
+    role: Role;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -25,8 +31,12 @@ export class UserService {
     login(username: string, password: string) {
         return this.http.post<{isAdmin: true}>('api/login', JSON.stringify({ username, password}), this.httpOptions)
             .pipe(map(user => {
-                this.cookieService.set(USERNAME_COOKIE_NAME, JSON.stringify({ username: username, isAdmin: user.isAdmin }));
-                return user;
+                const currentUser: User = {
+                    username,
+                    role: user.isAdmin ? Role.Admin : Role.User
+                };
+                this.cookieService.set(USERNAME_COOKIE_NAME, JSON.stringify(currentUser));
+                return currentUser;
             }));
     }
 
@@ -38,7 +48,7 @@ export class UserService {
     currentUser(): User {
         const user: User = {
             username: '',
-            isAdmin: false,
+            role: Role.Guest,
         }
         const cookie = this.cookieService.get(USERNAME_COOKIE_NAME);
         if (!cookie) return user;
