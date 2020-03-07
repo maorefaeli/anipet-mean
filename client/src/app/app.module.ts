@@ -13,7 +13,6 @@ import { AgmCoreModule } from '@agm/core';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
-import { RouterModule, Routes } from "@angular/router";
 import { FacebookModule } from "ngx-facebook";
 import { ProductsComponent } from './products/products.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
@@ -21,13 +20,6 @@ import { ProductComponent } from './products/product/product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 
-const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'orders', component: MyOrdersComponent },
-  { path: 'stores', component: StoresComponent },
-  { path: 'products', component: ProductsComponent},
-  { path: '**', redirectTo: 'home'},
-];
 
 @NgModule({
   declarations: [
@@ -52,7 +44,6 @@ const appRoutes: Routes = [
     NgbModule,
     HttpClientModule,
     FacebookModule,
-    RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBeXrVLeXmsD_RUXmg7J_HwlUCTnzSXxMw'
     })
