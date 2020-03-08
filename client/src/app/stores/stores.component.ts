@@ -62,4 +62,13 @@ export class StoresComponent implements OnInit {
       },
     );
   }
+
+  setLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.f.lng.setValue(position.coords.longitude);
+        this.f.lat.setValue(position.coords.latitude);
+      });
+    }
+  }
 }
