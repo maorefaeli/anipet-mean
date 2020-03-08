@@ -10,8 +10,11 @@ export class SignOutComponent {
 
   constructor(private userService: UserService) { }
 
-  onSignOut() {
-    this.userService.logout();
+  goToHome() {
     location.href = "/";
+  }
+
+  onSignOut() {
+    this.userService.logout().subscribe(() => this.goToHome(), () => this.goToHome());
   }
 }

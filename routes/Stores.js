@@ -5,11 +5,25 @@ const auth = require('../utils/auth');
 // Load Store model
 const Store = require('../models/Store');
 
+// @route GET api/stores
+// @desc Get all stores
+// @access Public
+router.get('/', async (req, res) => {
+    try {
+        const stores = await Store.find();
+        return res.json(stores || []);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({"error":"Problem getting stores"})
+    }
+});
+
 // @route POST api/stores/add
 // @desc Add store
 // @access Public
 router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
     const { name, lng, lat } = req.body;
+    
     let newStore = new Store ({
         name: name,
         location: {
@@ -26,16 +40,16 @@ router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
     }
 });
 
-// @route GET api/stores
-// @desc Get all stores
-// @access Public
-router.get('/', async (req, res) => {
+//  @route DELETE api/stores/:id
+//  @desc Delete specific store
+//  @access Public
+router.delete('/:id', auth.isAdminLoggedIn, async (req, res) => {
     try {
-        const stores = await Store.find();
-        return res.json(stores || []);
-    } catch (error) {
+        await Store.findByIdAndRemove(req.params.id);
+        return res.json(true);
+    } catch (error){
         console.log(error);
-        res.status(400).json({"error":"Problem getting stores"})
+        res.status(400).json({"error":"Problem removing store"})
     }
 });
 

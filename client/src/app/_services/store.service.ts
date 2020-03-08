@@ -17,4 +17,8 @@ export class StoreService {
     add(name: string, lng: number, lat: number) {
         return this.http.post<Store>('api/stores/add', JSON.stringify({ name, lng, lat }), this.httpOptions);
     }
+
+    delete(id: string) {
+        return this.http.delete(`api/stores/${id}`);
+    }
 }

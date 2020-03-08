@@ -19,6 +19,8 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { ProductComponent } from './products/product/product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     BrowserModule,
     AppRoutingModule,
     MatTabsModule,
+    MatListModule,
+    MatIconModule,
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,
