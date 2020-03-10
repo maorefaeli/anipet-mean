@@ -7,12 +7,12 @@
       <p> {{ product.name }}</p>
     </div>
     <div class="row weight">
-      <p class="field-name">weight: </p>
-      <p> {{ product.weightInKilo }} kg</p>
+      <p class="field-name">Weight:</p>&nbsp;
+      <p> {{ product.weight }} kg</p>
     </div>
     <div class="row price">
-      <p class="field-name">price: </p>
-      <p> {{ product.price }}₪</p>
+      <p class="field-name">Price:</p>&nbsp;
+      <p> {{ product.price | currency:"ILS" }}</p>
     </div>
   </div>
   <div class="col-md-4 order">

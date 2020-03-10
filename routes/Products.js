@@ -13,13 +13,13 @@ router.get('/', auth.isLoggedIn, async (req, res) => {
     
     const query = {};
     if (name) {
-        query.name = { $regex : `.*${name}.*` };
+        query.name = { $regex : `.*${name}.*`, $options: 'i' };
     }
     if (maxWeight) {
-        query.weightInKilo = { $le: Number(maxWeight) };
+        query.weight = { $lte: Number(maxWeight) };
     }
     if (maxPrice) {
-        query.price = { $le: Number(maxPrice) };
+        query.price = { $lte: Number(maxPrice) };
     }
 
     try {
@@ -35,11 +35,11 @@ router.get('/', auth.isLoggedIn, async (req, res) => {
 // @desc Add product
 // @access Public
 router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
-    const { name, weightInKilo, price } = req.body;
+    const { name, weight, price } = req.body;
     const newProduct = new Product ({
-        name: name,
-        weightInKilo: weightInKilo,
-        price: price
+        name,
+        weight,
+        price
     });
     try {
         newProduct = await newProduct.save();
@@ -67,10 +67,10 @@ router.delete('/:id', auth.isAdminLoggedIn, async (req, res) => {
 //  @desc Edit specific product
 //  @access Public
 router.post('/:id', auth.isAdminLoggedIn, async (req, res) => {
-    const { name, weightInKilo, price } = req.body;
+    const { name, weight, price } = req.body;
     const product = {
         name,
-        weightInKilo,
+        weight,
         price
     }
 

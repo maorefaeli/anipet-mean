@@ -25,7 +25,7 @@ router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
     const { name, lng, lat } = req.body;
     
     let newStore = new Store ({
-        name: name,
+        name,
         location: {
             type: "Point",
             coordinates: [lng, lat]

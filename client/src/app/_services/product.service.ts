@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Product from '../_models/product';
 
 @Injectable({ providedIn: 'root' })
@@ -11,7 +11,7 @@ export class ProductService {
     };
 
     search(name?: string, maxWeight?: number, maxPrice?: number) {
-        const params = new HttpParams();
+        const params = {};
         if (name) {
             params['name'] = name;
         }
@@ -24,8 +24,8 @@ export class ProductService {
         return this.http.get<Product[]>('api/products', { params });
     }
 
-    add(name: string, weightInKilo: number, price: number) {
-        return this.http.post<Product>('api/products/add', JSON.stringify({ name, weightInKilo, price }), this.httpOptions);
+    add(name: string, weight: number, price: number) {
+        return this.http.post<Product>('api/products/add', JSON.stringify({ name, weight, price }), this.httpOptions);
     }
 
     delete(id: string) {
@@ -35,7 +35,7 @@ export class ProductService {
     edit(product: Product) {
         return this.http.post(
             `api/products/${product.id}`,
-            JSON.stringify({ name: product.name, weightInKilo: product.weightInKilo, price: product.price }),
+            JSON.stringify({ name: product.name, weight: product.weight, price: product.price }),
             this.httpOptions
         );
     }

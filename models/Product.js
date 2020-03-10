@@ -7,7 +7,7 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
-    weightInKilo: {
+    weight: {
         type: Number,
         required: true
     },

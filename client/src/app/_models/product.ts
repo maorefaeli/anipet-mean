@@ -1,6 +1,6 @@
 export default class Product {
     id: string;
     name: string;
-    weightInKilo: number;
+    weight: number;
     price: number;
 }

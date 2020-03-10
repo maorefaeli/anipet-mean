@@ -1,7 +1,7 @@
 <div class="container row">
-  <div class="margin col-md-1"></div>
-  <div class="products-container col-md-8">
-    <div class="row food-row" *ngFor="let product of products | async">
+  <h3 *ngIf="!products.length">No Products</h3>
+  <div class="products-container col-md-8" *ngIf="products.length">
+    <div class="row food-row" *ngFor="let product of products">
       <div class="product">
         <app-product [product]="product"></app-product>
       </div>
@@ -9,28 +9,25 @@
   </div>
   <form [formGroup]="filterForm" class="filters-container col-md-3" (ngSubmit)="submit()">
     <div class="name-title title">Name</div>
-    <div class="row filter-row">
-      <label>
-        <input formControlName="name" type="text">
-      </label>
+    <div class="filter-row">
+      <input formControlName="name" type="text">
     </div>
     <div class="row space"></div>
-    <div class="weight-title title">Weight</div>
-    <div class="row filter-row">
-      <label>
-        <input formControlName="weight" type="text">
-      </label>
+    <div class="weight-title title">Max Weight</div>
+    <div class="filter-row">
+      <input formControlName="maxWeight" type="number">
     </div>
     <div class="row space"></div>
-    <div class="price-title title">Up To Price</div>
-    <div class="row filter-row">
-      <label>
-        <input formControlName="upToPrice" type="text">
-      </label>
+    <div class="price-title title">Max Price</div>
+    <div class="filter-row">
+      <input formControlName="maxPrice" type="number">
     </div>
     <div class="row button-row">
-      <button class="btn btn-dark filter-btn" (click)="clearFilters()">Clear</button>
-      <button class="btn btn-dark filter-btn">Search</button>
+      <button class="btn btn-dark filter-btn" type="button" (click)="clearFilters()">Clear</button>
+      <button class="btn btn-dark filter-btn">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Search
+      </button>
     </div>
   </form>
 </div>

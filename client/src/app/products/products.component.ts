@@ -1,9 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs/Observable";
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../_services/product.service";
 import Product from "../_models/product";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {log} from "util";
+import { FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-products',
@@ -11,42 +9,43 @@ import {log} from "util";
   styleUrls: ['./products.component.sass']
 })
 export class ProductsComponent implements OnInit {
-  products: Observable<Array<Product>>;
-  weights: number[] = [];
+  products: Product[] = [];
   filterForm: FormGroup;
+  loading = false;
 
-  constructor(private productService: ProductService, private formBuilder: FormBuilder) {
-
+  constructor(
+    private productService: ProductService,
+    private formBuilder: FormBuilder) {
   }
 
-  get form() {
-    return this.filterForm.controls
-  }
+  get f() { return this.filterForm.controls; }
 
   ngOnInit() {
-    this.products = this.productService.search();
-    this.products.subscribe(products => {
-      products.forEach(product => {
-        if (this.weights.indexOf(product.weightInKilo) === -1) {
-          this.weights.push(product.weightInKilo);
-        }
-      });
-    });
     this.filterForm = this.formBuilder.group({
       name: [''],
-      upToPrice: [''],
-      weight: ['']
+      maxWeight: [''],
+      maxPrice: [''],
     });
+    this.submit();
   }
 
   public submit() {
-    this.products = this.productService.search(this.form.name.value, this.form.weight.value, this.form.upToPrice.value);
-    this.products.subscribe(products => log(products));
+    this.loading = true;
+    this.productService.search(this.f.name.value, this.f.maxWeight.value, this.f.maxPrice.value).subscribe(
+      data => {
+        this.products = data;
+        this.loading = false;
+      },
+      error => {
+        this.products = [];
+        this.loading = false;
+      },
+    );
   }
 
   public clearFilters() {
-    for (let control in this.form) {
-      this.form[control].reset();
+    for (let control in this.f) {
+      this.f[control].reset();
     }
   }
 }
