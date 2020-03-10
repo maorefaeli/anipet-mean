@@ -4,6 +4,7 @@ const express = require('express');
 const session = require("express-session");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const MongoStore = require('connect-mongo')(session);
 
 const users = require('./routes/Users');
 const products = require('./routes/Products');
@@ -48,20 +49,6 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-// Body parser middleware
-app.use(express.static("public"));
-app.use(session({ 
-    name: 'anipet.sid',
-    secret: 'anipet',
-    resave: true,
-    saveUninitialized: false,
-    cookie: { secure: false }
-}));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
-
 // DB Config
 const db = require('./config/keys').mongoURI;
 
@@ -70,6 +57,21 @@ mongoose
     .connect(db, { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
+
+// Body parser middleware
+app.use(express.static("public"));
+app.use(session({ 
+    name: 'anipet.sid',
+    secret: 'anipet',
+    resave: true,
+    saveUninitialized: false,
+    cookie: { secure: false },
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/', (req, res) => {
     res.send({msg: 'hello! Server is up'});
