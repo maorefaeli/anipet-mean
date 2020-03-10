@@ -15,6 +15,6 @@ export class PurchaseService {
     }
 
     add(productId: string) {
-        return this.http.post<Purchase>('api/purchases/add', JSON.stringify({ productId }), this.httpOptions);
+        return this.http.post<boolean>('api/purchases/add', JSON.stringify({ productId }), this.httpOptions);
     }
 }

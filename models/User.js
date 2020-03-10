@@ -28,4 +28,10 @@ UserSchema.statics.encryptPassword = function(password) {
     return encryptPassword(password);
 };
 
+UserSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) { delete ret._id }
+});
+
 module.exports = User = mongoose.model('User', UserSchema, 'Users');

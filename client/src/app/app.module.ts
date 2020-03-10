@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatTabsModule,
     MatListModule,
     MatIconModule,
+    MatTableModule,
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,
