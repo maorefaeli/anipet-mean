@@ -16,10 +16,9 @@
     </div>
     <div class="row space"></div>
     <div class="weight-title title">Weight</div>
-    <div class="row filter-row" *ngFor="let weight of weights">
+    <div class="row filter-row">
       <label>
-        <input formControlName="weight{{weight}}" type="checkbox" >
-        {{ weight }}
+        <input formControlName="weight" type="text">
       </label>
     </div>
     <div class="row space"></div>

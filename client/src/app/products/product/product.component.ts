@@ -17,6 +17,6 @@ export class ProductComponent implements OnInit {
   }
 
   public order() {
-    this.purchaseService.add(this.product.id);
+    this.purchaseService.add(this.product.id).subscribe();
   }
 }
