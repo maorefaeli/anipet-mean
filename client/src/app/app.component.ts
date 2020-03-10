@@ -12,7 +12,8 @@ export class AppComponent implements OnInit {
   temperature = '20';
   private allNavLinks = [
     { path: 'home', label: 'Home', roles: [Role.User, Role.Admin] },
-    { path: 'orders', label: 'Orders', roles: [Role.User, Role.Admin] },
+    { path: 'orders', label: 'All Orders', roles: [Role.Admin] },
+    { path: 'orders', label: 'My Orders', roles: [Role.User] },
     { path: 'products', label: 'Products', roles: [Role.User, Role.Admin] },
     { path: 'stores', label: 'Stores', roles: [Role.Admin] },
   ];

@@ -29,7 +29,7 @@
             <!-- Price Column -->
             <ng-container matColumnDef="price">
                 <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element.product.price }} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{ element.product.price | currency:"ILS" }} </mat-cell>
             </ng-container>
         
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row >
