@@ -7,35 +7,31 @@
       </div>
     </div>
   </div>
-  <div class="filters-container col-md-3">
-    <div class="producer-title title">Producer</div>
-      <div class="row filter-row" *ngFor="let producer of producers">
-        <label>
-          <input #checkbox type="checkbox" (click)="filterProducer(producer, checkbox.checked)">
-          {{ producer }}
-        </label>
-      </div>
+  <form [formGroup]="filterForm" class="filters-container col-md-3" (ngSubmit)="submit()">
+    <div class="name-title title">Name</div>
+    <div class="row filter-row">
+      <label>
+        <input formControlName="name" type="text">
+      </label>
+    </div>
     <div class="row space"></div>
     <div class="weight-title title">Weight</div>
     <div class="row filter-row" *ngFor="let weight of weights">
       <label>
-        <input #checkbox type="checkbox" >
+        <input formControlName="weight{{weight}}" type="checkbox" >
         {{ weight }}
       </label>
     </div>
     <div class="row space"></div>
-    <div class="price-title title">Price</div>
+    <div class="price-title title">Up To Price</div>
     <div class="row filter-row">
       <label>
-        from
-        <input class="price-input" type="text">
-        to
-        <input class="price-input" type="text">
+        <input formControlName="upToPrice" type="text">
       </label>
     </div>
     <div class="row button-row">
-      <button class="btn btn-dark filter-btn">Clear</button>
+      <button class="btn btn-dark filter-btn" (click)="clearFilters()">Clear</button>
       <button class="btn btn-dark filter-btn">Search</button>
     </div>
-  </div>
+  </form>
 </div>

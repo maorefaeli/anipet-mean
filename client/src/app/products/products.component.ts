@@ -1,8 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Product} from "./Product";
 import {Observable} from "rxjs/Observable";
 import {filter, map} from "rxjs/operators";
 import product from "../_models/product";
+import {ProductService} from "../_services/product.service";
+import Product from "../_models/product";
+import {ControlContainer, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {log} from "util";
 
 @Component({
   selector: 'app-products',
@@ -10,58 +13,58 @@ import product from "../_models/product";
   styleUrls: ['./products.component.sass']
 })
 export class ProductsComponent implements OnInit {
-  p: Product[] = [{name: "Cats Food", price: 100, weight: 7, producer: "Go"},
-                  {name: "Dogs Food", price: 80, weight: 3.5, producer: "Pro Plan"}];
   products: Observable<Array<Product>>;
-  selectedProducts: Observable<Product[]>;
-  producers: string[] = [];
   weights: number[] = [];
-  minPrice: number = -1;
-  maxPrice: number = -1;
-  selectedPrice: number = 90;
+  filterForm: FormGroup;
 
-  constructor() {
+  constructor(private productService: ProductService, private formBuilder: FormBuilder) {
 
+  }
+
+  get form() {
+    return this.filterForm.controls
   }
 
   ngOnInit() {
-    this.products = new Observable((subscriber => subscriber.next(this.p)));
-    this.products.subscribe(products => products.forEach(product => {
-      if (this.producers.indexOf(product.producer) === -1) {
-        this.producers.push(product.producer);
-      }
-
-      if (this.weights.indexOf(product.weight) === -1) {
-        this.weights.push(product.weight);
-      }
-
-      if (this.minPrice == -1 || this.minPrice > product.price) {
-        this.minPrice = product.price;
-      }
-
-      if (this.maxPrice < product.price) {
-        this.maxPrice = product.price;
-      }
-    }))
-  }
-
-  filterProducer(f: string, selected: boolean) {
-    if (selected) {
-      this.products.subscribe(products => {
-        products.filter(product => product.producer === f);
-        this.products = new Observable(subscriber => (subscriber.next(products)))
+    this.products = this.productService.search();
+    this.products.subscribe(products => {
+      products.forEach(product => {
+        if (this.weights.indexOf(product.weightInKilo) === -1) {
+          this.weights.push(product.weightInKilo);
+        }
       });
-    } else {
-      // this.selectedProducts = this.selectedProducts.filter(product => product.producer !== f);
-    }
+
+      this.weights.sort((num1: number, num2: number) => num1 - num2);
+      for (let weight of this.weights) {
+        this.filterForm.addControl("weight" + weight, new FormControl(false));
+      }
+    });
+    this.filterForm = this.formBuilder.group({
+      name: [''],
+      upToPrice: [''],
+    });
   }
 
+  public submit() {
+    let maxWeight = 0;
+    for (let control in this.form) {
+      let weight = this.getWeight(control);
+      if (control.indexOf("weight") === 0 && this.form[control].value && weight > maxWeight) {
+        maxWeight = weight;
+      }
+    }
 
-  // filterWeight(f: number, selected: boolean) {
-  //   if (selected) {
-  //     this.selectedProducts.concat(this.products.filter(product => product.price === f));
-  //   } else {
-  //     this.selectedProducts = this.selectedProducts.filter(product => product.price !== f);
-  //   }
-  // }
+    this.products = this.productService.search(this.form.name.value, maxWeight, this.form.upToPrice.value);
+    this.products.subscribe(products => log(products));
+  }
+
+  private getWeight(weight: String) {
+      return Number.parseFloat(weight.substr("weight".length, weight.length));
+  }
+
+  public clearFilters() {
+    // for (let control in this.form) {
+    //   this.form
+    // }
+  }
 }

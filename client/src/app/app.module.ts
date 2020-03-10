@@ -14,13 +14,12 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { FacebookModule } from "ngx-facebook";
-import { ProductsComponent } from './products/products.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { ProductComponent } from './products/product/product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import {ProductsModule} from "./products/products.module";
 import { MatTableModule } from '@angular/material/table';
 
 
@@ -33,9 +32,7 @@ import { MatTableModule } from '@angular/material/table';
     SignInComponent,
     SignUpComponent,
     SignOutComponent,
-    ProductsComponent,
     MyOrdersComponent,
-    ProductComponent,
   ],
   imports: [
     FormsModule,
@@ -50,6 +47,7 @@ import { MatTableModule } from '@angular/material/table';
     NgbModule,
     HttpClientModule,
     FacebookModule,
+    ProductsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBeXrVLeXmsD_RUXmg7J_HwlUCTnzSXxMw'
     })

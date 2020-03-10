@@ -8,11 +8,7 @@
     </div>
     <div class="row weight">
       <p class="field-name">weight: </p>
-      <p> {{ product.weight }} kg</p>
-    </div>
-    <div class="row producer">
-      <p class="field-name">producer: </p>
-      <p> {{ product.producer }}</p>
+      <p> {{ product.weightInKilo }} kg</p>
     </div>
     <div class="row price">
       <p class="field-name">price: </p>
@@ -20,6 +16,6 @@
     </div>
   </div>
   <div class="col-md-4 order">
-    <button class="btn btn-success order-button">Order Now!</button>
+    <button class="btn btn-success order-button" (click)="order()">Order Now!</button>
   </div>
 </div>
