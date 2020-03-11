@@ -35,7 +35,7 @@ export class UserService {
                     username,
                     role: user.isAdmin ? Role.Admin : Role.User
                 };
-                this.cookieService.set(USERNAME_COOKIE_NAME, JSON.stringify(currentUser));
+                this.cookieService.set(USERNAME_COOKIE_NAME, JSON.stringify(currentUser), undefined, undefined, undefined, undefined, 'Lax');
                 return currentUser;
             }));
     }
