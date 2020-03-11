@@ -48,4 +48,8 @@ export class ProductsComponent implements OnInit {
       this.f[control].reset();
     }
   }
+
+  public removeProductFromList(productId) {
+    this.products = this.products.filter(p => p.id !== productId);
+  }
 }

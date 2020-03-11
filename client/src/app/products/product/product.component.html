@@ -14,8 +14,31 @@
       <p class="field-name">Price:</p>&nbsp;
       <p> {{ product.price | currency:"ILS" }}</p>
     </div>
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
   </div>
-  <div class="col-md-4 order">
-    <button class="btn btn-success order-button" (click)="order()">Order Now!</button>
+  <div class="actions col-md-4">
+    <button *ngIf="!isAdmin" class="btn btn-success order-button" (click)="order()">
+      <mat-icon>shop</mat-icon>
+      Order Now!
+    </button>
+    <button *ngIf="isAdmin &&!editMode" class="btn btn-primary" (click)="startEdit()">
+      <mat-icon>edit</mat-icon>
+      Edit
+    </button>
+    <div *ngIf="isAdmin && editMode">
+      <button class="btn btn-primary" (click)="update()">
+        <mat-icon>save</mat-icon>
+        Save
+      </button>
+      <button class="btn btn-primary" (click)="stopEdit()">
+        <mat-icon>close</mat-icon>
+        Close
+      </button>
+    </div>
+    <button *ngIf="isAdmin" class="btn btn-primary" (click)="delete()">
+      <mat-icon>delete</mat-icon>
+      Delete
+    </button>
   </div>
 </div>
