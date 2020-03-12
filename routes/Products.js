@@ -50,13 +50,13 @@ router.get('/', auth.isLoggedIn, async (req, res) => {
 // @access Public
 router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
     const { name, weight, price } = req.body;
-    const newProduct = new Product ({
+    let newProduct = new Product ({
         name,
         weight,
         price
     });
 
-    const error = isProductContainErrors(newProduct);
+    let error = isProductContainErrors(newProduct);
     if (error) {
         return res.status(400).json({ error });
     }
@@ -64,9 +64,13 @@ router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
     try {
         newProduct = await newProduct.save();
         res.json(newProduct);
-    } catch (error) {
-        console.log(error);
-        res.status(400).json({"error":"Problem saving product"});
+    } catch (e) {
+        console.log(e);
+        error = 'Problem saving product';
+        if (e.errmsg && /duplicate key error/i.test(e.errmsg)) {
+            error = 'Name already exists';
+        }
+        res.status(400).json({ error });
     }
 });
 

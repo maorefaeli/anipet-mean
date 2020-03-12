@@ -35,7 +35,7 @@ export class ProductService {
     }
 
     delete(id: string) {
-        return this.http.delete(`api/products/${id}`);
+        return this.http.delete<boolean>(`api/products/${id}`);
     }
 
     edit(id: string, name: string, weight: number, price: number) {

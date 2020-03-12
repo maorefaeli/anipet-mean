@@ -19,6 +19,6 @@ export class StoreService {
     }
 
     delete(id: string) {
-        return this.http.delete(`api/stores/${id}`);
+        return this.http.delete<boolean>(`api/stores/${id}`);
     }
 }

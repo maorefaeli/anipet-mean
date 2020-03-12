@@ -54,7 +54,7 @@ export class StoresComponent implements OnInit {
     this.storeService.add(this.f.name.value, this.f.lng.value, this.f.lat.value).subscribe(
       data => {
         this.loading = false;
-        this.stores.push(data);
+        this.stores.unshift(data);
       },
       error => {
         this.errorMessage = 'Failed to add a new store';

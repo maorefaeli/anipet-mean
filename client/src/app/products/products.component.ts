@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../_services/product.service";
 import Product from "../_models/product";
-import { FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { UserService, Role } from '../_services/user.service';
+import { positiveNumberValidator } from '../_validators/positiveNumber';
 
 @Component({
   selector: 'app-products',
@@ -10,17 +12,36 @@ import { FormBuilder, FormGroup} from "@angular/forms";
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
+
   filterForm: FormGroup;
-  loading = false;
+  loadingSearch = false;
+
+  newProductForm: FormGroup;
+  loadingNewProduct = false;
+  submitted = false;
+  errorMessage = '';
+  successMessage = '';
 
   constructor(
     private productService: ProductService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private userService: UserService) {
   }
 
+  get n() { return this.newProductForm.controls; }
+  
   get f() { return this.filterForm.controls; }
 
+  public get isAdmin() {
+    return this.userService.currentUser().role === Role.Admin;
+  }
+  
   ngOnInit() {
+    this.newProductForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      weight: ['', positiveNumberValidator()],
+      price: ['', positiveNumberValidator()],
+    });
     this.filterForm = this.formBuilder.group({
       name: [''],
       minWeight: [''],
@@ -28,11 +49,35 @@ export class ProductsComponent implements OnInit {
       minPrice: [''],
       maxPrice: [''],
     });
-    this.submit();
+    this.search();
   }
 
-  public submit() {
-    this.loading = true;
+  public addProduct() {
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.newProductForm.invalid) {
+        return;
+    }
+
+    this.loadingNewProduct = true;
+    this.productService.add(this.n.name.value, this.n.weight.value, this.n.price.value).subscribe(
+      data => {
+        this.products.unshift(data);
+        this.successMessage = 'Product added'
+        this.loadingNewProduct = false;
+      },
+      error => {
+        this.errorMessage = `Add failed: ${error.error.error}`;
+        this.loadingNewProduct = false;
+      }
+    );
+  }
+
+  public search() {
+    this.loadingSearch = true;
     this.productService.search(
       this.f.name.value,
       this.f.minWeight.value,
@@ -42,11 +87,11 @@ export class ProductsComponent implements OnInit {
     ).subscribe(
       data => {
         this.products = data;
-        this.loading = false;
+        this.loadingSearch = false;
       },
       error => {
         this.products = [];
-        this.loading = false;
+        this.loadingSearch = false;
       },
     );
   }

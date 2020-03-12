@@ -1,5 +1,7 @@
 <div class="container row">
-  <h3 *ngIf="!products.length">No Products</h3>
+  <h3 class="col-md-8" *ngIf="!products.length">No Products</h3>
+
+  <!-- Product list -->
   <div class="products-container col-md-8" *ngIf="products.length">
     <div class="row food-row" *ngFor="let product of products">
       <div class="product">
@@ -7,39 +9,79 @@
       </div>
     </div>
   </div>
-  <form [formGroup]="filterForm" class="filters-container col-md-3" (ngSubmit)="submit()">
-    <div class="name-title title">Name</div>
-    <div class="row">
-      <div class="col">
-        <input class="form-control" formControlName="name" type="text">
+
+  <div class="col-md-3 side-forms-container">
+
+    <!-- Search -->
+    <form [formGroup]="filterForm" class="form-control side-form-container" (ngSubmit)="search()">
+      <div class="name-title title">Name</div>
+      <div class="row">
+        <div class="col">
+          <input class="form-control" formControlName="name" type="text">
+        </div>
       </div>
-    </div>
-    <div class="row space"></div>
-    <div class="weight-title title">Weight</div>
-    <div class="row">
-      <div class="col">
-        <input class="form-control" formControlName="minWeight" type="number" placeholder="Min">
+      <div class="row space"></div>
+      <div class="weight-title title">Weight</div>
+      <div class="row">
+        <div class="col">
+          <input class="form-control" formControlName="minWeight" type="number" placeholder="Min">
+        </div>
+        <div class="col">
+          <input class="col form-control" formControlName="maxWeight" type="number" placeholder="Max">
+        </div>
       </div>
-      <div class="col">
-        <input class="col form-control" formControlName="maxWeight" type="number" placeholder="Max">
+      <div class="row space"></div>
+      <div class="price-title title">Price</div>
+      <div class="row">
+        <div class="col">
+          <input class="form-control" formControlName="minPrice" type="number" placeholder="Min">
+        </div>
+        <div class="col">
+          <input class="col form-control" formControlName="maxPrice" type="number" placeholder="Max">
+        </div>
       </div>
-    </div>
-    <div class="row space"></div>
-    <div class="price-title title">Price</div>
-    <div class="row">
-      <div class="col">
-        <input class="form-control" formControlName="minPrice" type="number" placeholder="Min">
+      <div class="row button-row">
+        <button class="btn btn-dark filter-btn" type="button" (click)="clearFilters()">Clear</button>
+        <button class="btn btn-dark filter-btn">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Search
+        </button>
       </div>
-      <div class="col">
-        <input class="col form-control" formControlName="maxPrice" type="number" placeholder="Max">
+    </form>
+
+    <!-- New product -->
+    <form *ngIf="isAdmin" [formGroup]="newProductForm" class="form-control side-form-container" (ngSubmit)="addProduct()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && n.name.errors }">
+        <div *ngIf="submitted && n.name.errors" class="invalid-feedback">
+          <div *ngIf="n.name.errors.required">Name is required</div>
+        </div>
       </div>
-    </div>
-    <div class="row button-row">
-      <button class="btn btn-dark filter-btn" type="button" (click)="clearFilters()">Clear</button>
-      <button class="btn btn-dark filter-btn">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        Search
-      </button>
-    </div>
-  </form>
+      <div class="form-group">
+        <label for="weight">Weight</label>
+        <input type="number" formControlName="weight" class="form-control" [ngClass]="{ 'is-invalid': submitted && n.weight.errors }" />
+        <div *ngIf="submitted && n.weight.errors" class="invalid-feedback">
+            <div *ngIf="n.weight.errors.nonPositive">Weight must be positive</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" formControlName="price" class="form-control" [ngClass]="{ 'is-invalid': submitted && n.price.errors }" />
+        <div *ngIf="submitted && n.price.errors" class="invalid-feedback">
+            <div *ngIf="n.price.errors.nonPositive">Price must be positive</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Add New Product
+        </button>
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+    </form>
+    
+  </div>
+
 </div>
