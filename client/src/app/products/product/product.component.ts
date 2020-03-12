@@ -3,6 +3,8 @@ import Product from "../../_models/product";
 import {PurchaseService} from "../../_services/purchase.service";
 import { UserService, Role } from 'src/app/_services/user.service';
 import { ProductService } from 'src/app/_services/product.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { positiveNumberValidator } from 'src/app/_validators/positiveNumber';
 
 @Component({
   selector: 'app-product',
@@ -15,8 +17,12 @@ export class ProductComponent implements OnInit {
   successMessage: String;
   errorMessage: String;
   editMode = false;
+  updateForm: FormGroup;
+  loading = false;
+  submitted = false;
 
   constructor(
+    private formBuilder: FormBuilder,
     private purchaseService: PurchaseService,
     private productService: ProductService,
     private userService: UserService) {
@@ -24,6 +30,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  get f() { return this.updateForm.controls; }
 
   public get isAdmin() {
     return this.userService.currentUser().role === Role.Admin;
@@ -57,6 +65,11 @@ export class ProductComponent implements OnInit {
 
   public startEdit() {
     this.editMode = true;
+    this.updateForm = this.formBuilder.group({
+      name: [this.product.name, Validators.required],
+      weight: [this.product.weight, positiveNumberValidator()],
+      price: [this.product.price, positiveNumberValidator()],
+    });
   }
 
   public stopEdit() {
@@ -64,13 +77,26 @@ export class ProductComponent implements OnInit {
   }
 
   public update() {
-    // TODO: complete this
-    this.productService.edit(this.product).subscribe(
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.updateForm.invalid) {
+        return;
+    }
+
+    this.loading = true;
+
+    this.productService.edit(this.product.id, this.f.name.value, this.f.weight.value, this.f.price.value).subscribe(
       data => {
         this.setMessage('Product updated', true);
         this.editMode = false;
+        this.loading = false;
+        this.product = data;
       },
-      error => this.setMessage('Product could not be updated', false)
+      error => {
+        this.setMessage(`Update failed: ${error.error.error}`, false);
+        this.loading = false;
+      }
     );
   }
 }

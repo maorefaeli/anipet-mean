@@ -1,41 +1,77 @@
 <div class="row product-container">
+
+  <!-- Picture -->
   <div class="product-image col-md-4">
     <img alt="" src="../../../assets/foodPic.jpg">
   </div>
+
+  <!-- Info -->
   <div class="info col-md-4">
-    <div class="row title">
-      <p> {{ product.name }}</p>
+
+    <!-- Edit product -->
+    <form *ngIf="editMode" [formGroup]="updateForm" (ngSubmit)="update()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="weight">Weight</label>
+        <input type="number" formControlName="weight" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.weight.errors }" />
+        <div *ngIf="submitted && f.weight.errors" class="invalid-feedback">
+            <div *ngIf="f.weight.errors.nonPositive">Weight must be positive</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" formControlName="price" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+        <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+            <div *ngIf="f.price.errors.nonPositive">Price must be positive</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+        </button>
+      </div>
+    </form>
+
+    <!-- View product -->
+    <div *ngIf="!editMode">
+      <div class="row title">
+        <p> {{ product.name }}</p>
+      </div>
+      <div class="row weight">
+        <p class="field-name">Weight:</p>&nbsp;
+        <p> {{ product.weight }} kg</p>
+      </div>
+      <div class="row price">
+        <p class="field-name">Price:</p>&nbsp;
+        <p> {{ product.price | currency:"ILS" }}</p>
+      </div>
     </div>
-    <div class="row weight">
-      <p class="field-name">Weight:</p>&nbsp;
-      <p> {{ product.weight }} kg</p>
-    </div>
-    <div class="row price">
-      <p class="field-name">Price:</p>&nbsp;
-      <p> {{ product.price | currency:"ILS" }}</p>
-    </div>
+    
     <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
     <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
   </div>
+
+  <!-- Actions -->
   <div class="actions col-md-4">
     <button *ngIf="!isAdmin" class="btn btn-success order-button" (click)="order()">
       <mat-icon>shop</mat-icon>
       Order Now!
     </button>
-    <button *ngIf="isAdmin &&!editMode" class="btn btn-primary" (click)="startEdit()">
+    <button *ngIf="isAdmin && !editMode" class="btn btn-primary" (click)="startEdit()">
       <mat-icon>edit</mat-icon>
       Edit
     </button>
-    <div *ngIf="isAdmin && editMode">
-      <button class="btn btn-primary" (click)="update()">
-        <mat-icon>save</mat-icon>
-        Save
-      </button>
-      <button class="btn btn-primary" (click)="stopEdit()">
-        <mat-icon>close</mat-icon>
-        Close
-      </button>
-    </div>
+    <button *ngIf="isAdmin && editMode" class="btn btn-primary" (click)="stopEdit()">
+      <mat-icon>close</mat-icon>
+      Close
+    </button>
     <button *ngIf="isAdmin" class="btn btn-primary" (click)="delete()">
       <mat-icon>delete</mat-icon>
       Delete

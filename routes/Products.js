@@ -1,25 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../utils/auth');
+const validators = require('../utils/validators');
 
 // Load Product model
 const Product = require('../models/Product');
+
+const isProductContainErrors = (product) => {
+    if (!validators.isNonEmptyString(product.name)) return 'Name cannot be empty';
+    if (!validators.isPositiveNumber(product.weight)) return 'Weight must be positive';
+    if (!validators.isPositiveNumber(product.price)) return 'Price must be positive';
+    return '';
+};
 
 // @route GET api/products
 // @desc Search products
 // @access Public
 router.get('/', auth.isLoggedIn, async (req, res) => {
-    const { name, maxWeight, maxPrice } = req.query;
+    const { name, minWeight, maxWeight, minPrice, maxPrice } = req.query;
     
     const query = {};
     if (name) {
         query.name = { $regex : `.*${name}.*`, $options: 'i' };
     }
+    if (minWeight) {
+        query.weight = { $gte: Number(minWeight) };
+    }
     if (maxWeight) {
-        query.weight = { $lte: Number(maxWeight) };
+        query.weight = { ...query.weight, $lte: Number(maxWeight) };
+    }
+    if (minPrice) {
+        query.price = { $gte: Number(minPrice) };
     }
     if (maxPrice) {
-        query.price = { $lte: Number(maxPrice) };
+        query.price = { ...query.price, $lte: Number(maxPrice) };
     }
 
     try {
@@ -41,6 +55,12 @@ router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
         weight,
         price
     });
+
+    const error = isProductContainErrors(newProduct);
+    if (error) {
+        return res.status(400).json({ error });
+    }
+
     try {
         newProduct = await newProduct.save();
         res.json(newProduct);
@@ -72,11 +92,16 @@ router.post('/:id', auth.isAdminLoggedIn, async (req, res) => {
         name,
         weight,
         price
+    };
+
+    const error = isProductContainErrors(product);
+    if (error) {
+        return res.status(400).json({ error });
     }
 
     try {
-        await Product.findByIdAndUpdate(req.params.id, product);
-        return res.json(true);
+        const newProduct = await Product.findByIdAndUpdate(req.params.id, product, { new: true });
+        return res.json(newProduct);
     } catch (error){
         console.log(error);
         res.status(400).json({"error":"Problem editing product"})

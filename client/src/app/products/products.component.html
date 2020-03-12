@@ -9,18 +9,30 @@
   </div>
   <form [formGroup]="filterForm" class="filters-container col-md-3" (ngSubmit)="submit()">
     <div class="name-title title">Name</div>
-    <div class="filter-row">
-      <input formControlName="name" type="text">
+    <div class="row">
+      <div class="col">
+        <input class="form-control" formControlName="name" type="text">
+      </div>
     </div>
     <div class="row space"></div>
-    <div class="weight-title title">Max Weight</div>
-    <div class="filter-row">
-      <input formControlName="maxWeight" type="number">
+    <div class="weight-title title">Weight</div>
+    <div class="row">
+      <div class="col">
+        <input class="form-control" formControlName="minWeight" type="number" placeholder="Min">
+      </div>
+      <div class="col">
+        <input class="col form-control" formControlName="maxWeight" type="number" placeholder="Max">
+      </div>
     </div>
     <div class="row space"></div>
-    <div class="price-title title">Max Price</div>
-    <div class="filter-row">
-      <input formControlName="maxPrice" type="number">
+    <div class="price-title title">Price</div>
+    <div class="row">
+      <div class="col">
+        <input class="form-control" formControlName="minPrice" type="number" placeholder="Min">
+      </div>
+      <div class="col">
+        <input class="col form-control" formControlName="maxPrice" type="number" placeholder="Max">
+      </div>
     </div>
     <div class="row button-row">
       <button class="btn btn-dark filter-btn" type="button" (click)="clearFilters()">Clear</button>

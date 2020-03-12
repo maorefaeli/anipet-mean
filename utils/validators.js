@@ -6,10 +6,12 @@ exports.isDefined = (value) => !isUndefined(value);
 const isString = (value) => typeof value === 'string';
 exports.isString = isString;
 
-exports.isStringWithValue = (value) => isString(value) && value;
+exports.isNonEmptyString = (value) => isString(value) && Boolean(value.trim());
 
 const isNumber = (value) => typeof value === 'number' && !Number.isNaN(value);
 exports.isNumber = isNumber;
+
+exports.isPositiveNumber = (value) => isNumber(value) && value > 0;
 
 exports.isInteger = (value) => isNumber(value) && value % 1 === 0;
 

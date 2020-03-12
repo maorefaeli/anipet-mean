@@ -20,10 +20,10 @@ const validators = require('./utils/validators');
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
-        if (!validators.isStringWithValue(username)) {
+        if (!validators.isNonEmptyString(username)) {
             return done(null, false, { message: 'Username cannot be empty.' });
         }
-        if (!validators.isStringWithValue(password)) {
+        if (!validators.isNonEmptyString(password)) {
             return done(null, false, { message: 'Password cannot be empty.' });
         }
 
@@ -54,7 +54,12 @@ const db = require('./config/keys').mongoURI;
 
 // Connect to mongoDB
 mongoose
-    .connect(db, { useNewUrlParser: true })
+    .connect(db, {
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
+        useUnifiedTopology:  true,
+    })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 

@@ -13,7 +13,7 @@ const ProductSchema = new Schema({
     },
     price: {
         type: Number,
-        required: false
+        required: true
     }
 });
 

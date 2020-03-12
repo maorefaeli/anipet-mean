@@ -23,7 +23,9 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.filterForm = this.formBuilder.group({
       name: [''],
+      minWeight: [''],
       maxWeight: [''],
+      minPrice: [''],
       maxPrice: [''],
     });
     this.submit();
@@ -31,7 +33,13 @@ export class ProductsComponent implements OnInit {
 
   public submit() {
     this.loading = true;
-    this.productService.search(this.f.name.value, this.f.maxWeight.value, this.f.maxPrice.value).subscribe(
+    this.productService.search(
+      this.f.name.value,
+      this.f.minWeight.value,
+      this.f.maxWeight.value,
+      this.f.minPrice.value,
+      this.f.maxPrice.value
+    ).subscribe(
       data => {
         this.products = data;
         this.loading = false;

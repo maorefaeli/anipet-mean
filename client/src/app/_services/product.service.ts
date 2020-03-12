@@ -10,13 +10,19 @@ export class ProductService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    search(name?: string, maxWeight?: number, maxPrice?: number) {
+    search(name?: string, minWeight?: number, maxWeight?: number, minPrice?: number, maxPrice?: number) {
         const params = {};
         if (name) {
             params['name'] = name;
         }
+        if (minWeight) {
+            params['minWeight'] = minWeight;
+        }
         if (maxWeight) {
             params['maxWeight'] = maxWeight;
+        }
+        if (minPrice) {
+            params['minPrice'] = minPrice;
         }
         if (maxPrice) {
             params['maxPrice'] = maxPrice;
@@ -32,11 +38,7 @@ export class ProductService {
         return this.http.delete(`api/products/${id}`);
     }
 
-    edit(product: Product) {
-        return this.http.post(
-            `api/products/${product.id}`,
-            JSON.stringify({ name: product.name, weight: product.weight, price: product.price }),
-            this.httpOptions
-        );
+    edit(id: string, name: string, weight: number, price: number) {
+        return this.http.post<Product>(`api/products/${id}`, JSON.stringify({ name, weight, price }), this.httpOptions);
     }
 }

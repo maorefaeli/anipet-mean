@@ -12,11 +12,11 @@ const User = require('../models/User');
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
 
-    if (!validators.isStringWithValue(username)) {
+    if (!validators.isNonEmptyString(username)) {
         return res.status(400).json({"error": "name cannot be empty"});
     }
 
-    if (!validators.isStringWithValue(password)) {
+    if (!validators.isNonEmptyString(password)) {
         return res.status(400).json({"error": "password cannot be empty"});
     }
 
