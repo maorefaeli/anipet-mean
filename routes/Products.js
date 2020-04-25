@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../utils/auth');
 const validators = require('../utils/validators');
+const facebookApi = require('../utils/facebookApi');
 
 // Load Product model
 const Product = require('../models/Product');
@@ -64,6 +65,7 @@ router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
     try {
         newProduct = await newProduct.save();
         res.json(newProduct);
+        facebookApi.postFacebookMessage(`We have a new product called "${name}".\nCheck it out!`);
     } catch (e) {
         console.log(e);
         error = 'Problem saving product';
