@@ -10,6 +10,7 @@ const users = require('./routes/Users');
 const products = require('./routes/Products');
 const purchases = require('./routes/Purchases');
 const stores = require('./routes/Stores');
+const predictions = require('./routes/Prediction');
 
 const app = express();
 const port = 3000;
@@ -87,6 +88,7 @@ app.use('/users', users)
 app.use('/products', products)
 app.use('/purchases', purchases)
 app.use('/stores', stores)
+app.use('/predictions', predictions)
 
 // Handle login
 app.post('/login', passport.authenticate('local', { failWithError: true }),
