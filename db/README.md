@@ -33,7 +33,8 @@ Run `./anipet start` to get mongo up and running on `localhost:27017`.
 ## Stop
 Run `./anipet stop` to stop Anipet db
 
-## New dump
-```
-mongodump --db Anipet --gzip --archive > dump/MinimalAnipet.gz
-```
+## Wipe
+Run `./anipet wipe` to wipe out the db and start fresh
+
+## Take db dump
+Run `./anipet dump` to take a new db dump

@@ -9,4 +9,10 @@ elif [[ $1 == 'stop' ]]; then
 
 elif [[ $1 == 'wipe' ]]; then
     mongorestore --drop --gzip --archive=dump/MinimalAnipet.gz
+    echo 'Anipet db got wiped and refreshed'
+
+elif [[ $1 == 'dump' ]]; then
+    mongodump --db Anipet --gzip --archive > dump/MinimalAnipet.gz
+    echo 'New db dump is ready to be commited'
+
 fi
