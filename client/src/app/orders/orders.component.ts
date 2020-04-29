@@ -4,11 +4,11 @@ import { PurchaseService } from '../_services/purchase.service';
 import { UserService, Role } from '../_services/user.service';
 
 @Component({
-  selector: 'app-my-orders',
-  templateUrl: './my-orders.component.html',
-  styleUrls: ['./my-orders.component.sass']
+  selector: 'app-orders',
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.sass']
 })
-export class MyOrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit {
   displayedColumns: string[] = [];
   purchases: Purchase[] = [];
 

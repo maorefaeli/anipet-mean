@@ -1,19 +1,24 @@
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0&appId=118638832234224&autoLogAppEvents=1"></script>
 <div class="container">
   <div class="row">
-    <video autoplay="autoplay" class="video" width="500" height="350" controls>
-      <source src="../../assets/dog_gone_edit.mov">
-      Your browser does not support the video tag.
-    </video>
-    <!-- Generated with https://developers.facebook.com/docs/plugins/page-plugin/ -->
-    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FAnipetCS%2Fposts&tabs=messages%2C%20timeline&width=400&height=386&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=235154544323203" width="400" height="386" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
-  </div>
-  <div class="map-container">
-    <div class="map-title">
-      <p>Our Stores:</p>
+    <div class="col-8">
+      <section>
+        <p>Meet our presentor <b>Jeff</b> 🐶</p>
+        <video autoplay="autoplay" class="video" width="600" height="350" controls loop>
+          <source src="../../assets/dog.mov">
+          Your browser does not support the video tag.
+        </video>
+      </section>
+      <section>
+        <h4>Our Stores:</h4>
+        <app-map [stores]="stores"></app-map>
+      </section>
     </div>
-    <app-map [stores]="stores"></app-map>
-  </div>
+    <aside class="col-4">
+      <div class="sticky-top">
+        <h5>Like our facebook page to get updates about new products!</h5>
+        <!-- Generated with https://developers.facebook.com/docs/plugins/page-plugin/ -->
+        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FAnipetCS%2Fposts&tabs=messages%2C%20timeline&width=400&height=386&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=235154544323203" width="400" height="386" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+      </div>
+    </aside>
+</div>
 </div>

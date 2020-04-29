@@ -8,7 +8,6 @@ import { UserService, Role } from './_services/user.service';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-  title = 'anipet';
   temperature = '20';
   private allNavLinks = [
     { path: 'home', label: 'Home', roles: [Role.User, Role.Admin] },
@@ -38,7 +37,6 @@ export class AppComponent implements OnInit {
   public getWeather() {
     const response = this.httpClient.get("http://api.weatherstack.com/current?access_key=f383ca587405ad2203ac17c589d505f2&query=%22Tel%20Aviv%22")
     response.subscribe((data: JSON) => this.temperature = data['current']['temperature']);
-    let a = 0;
   }
 
   ngOnInit(): void {

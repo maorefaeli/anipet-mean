@@ -14,12 +14,12 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { FacebookModule } from "ngx-facebook";
-import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { OrdersComponent } from './orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import {ProductsModule} from "./products/products.module";
+import { ProductsModule } from "./products/products.module";
 import { MatTableModule } from '@angular/material/table';
 
 
@@ -32,7 +32,7 @@ import { MatTableModule } from '@angular/material/table';
     SignInComponent,
     SignUpComponent,
     SignOutComponent,
-    MyOrdersComponent,
+    OrdersComponent,
   ],
   imports: [
     FormsModule,

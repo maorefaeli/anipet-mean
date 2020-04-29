@@ -4,35 +4,31 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.bundle.min.js"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>Hello, world!</title>
+  <title>Anipet</title>
 </head>
 <body>
-<div class="container">
+<header class="container">
   <div class="row">
     <div class="col-4">
       <a href="/">
-        <img class="rounded float-left logo" src="../assets/Screen%20Shot%202020-01-22%20at%2012.25.10.png" alt="logo"/>
+        <img class="rounded float-left logo" src="../assets/logo1.png" alt="logo"/>
       </a>
     </div>
-    <div class="col-6 weather">
-      <div class="row weather-title">
-        It is now {{ temperature }} degrees
-      </div>
-      <div class="row weather-content">
-        <img src="../assets/Icons__cold.png" class="weather-img" *ngIf="temperature <= 15">
-        <img src="../assets/nice-weather.jpg" class="weather-img" *ngIf="temperature > 15 && temperature < 25">
-        <img src="../assets/hotweather.jpg" class="weather-img" *ngIf="temperature >= 25">
+    <div class="col-6 weather-container">
+      <div class="weather">
+        <h5>Weather</h5>
+        <div class="weather-img">
+          <img src="../assets/weather/cold.png" *ngIf="temperature <= 15">
+          <img src="../assets/weather/nice.png" *ngIf="temperature > 15 && temperature < 25">
+          <img src="../assets/weather/hot.png" *ngIf="temperature >= 25">
+        </div>
+        <p>It is {{ temperature }} degrees</p>
       </div>
     </div>
-    <div class="col-2 buttons user-management ">
+    <div class="col-2 user-management ">
       <div class="row">
         <div class="greeting" *ngIf="isLoggedIn()">
-          Hello, {{ getUsername() }}!
+          <div>Hello, {{ getUsername() }}!</div>
           <sign-out></sign-out>
         </div>
       </div>
@@ -65,19 +61,12 @@
       </a>
     </nav>
   </div>
-</div>
-<router-outlet>
-</router-outlet>
+</header>
+<main>
+  <router-outlet>
+  </router-outlet>
+</main>
 <footer class="rights">
   <p>&copy; All rights reserved to Maor Refaeli, Kobi Avshalom and Shai Lieberman</p>
 </footer>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
 </body>
