@@ -18,26 +18,26 @@ const isProductContainErrors = (product) => {
 // @desc Search products
 // @access Public
 router.get('/', auth.isLoggedIn, async (req, res) => {
-    const { name, minWeight, maxWeight, minPrice, maxPrice } = req.query;
-    
-    const query = {};
-    if (name) {
-        query.name = { $regex : `.*${name}.*`, $options: 'i' };
-    }
-    if (minWeight) {
-        query.weight = { $gte: Number(minWeight) };
-    }
-    if (maxWeight) {
-        query.weight = { ...query.weight, $lte: Number(maxWeight) };
-    }
-    if (minPrice) {
-        query.price = { $gte: Number(minPrice) };
-    }
-    if (maxPrice) {
-        query.price = { ...query.price, $lte: Number(maxPrice) };
-    }
-
     try {
+        const { name, minWeight, maxWeight, minPrice, maxPrice } = req.query;
+        
+        const query = {};
+        if (name) {
+            query.name = { $regex : `.*${name}.*`, $options: 'i' };
+        }
+        if (minWeight) {
+            query.weight = { $gte: Number(minWeight) };
+        }
+        if (maxWeight) {
+            query.weight = { ...query.weight, $lte: Number(maxWeight) };
+        }
+        if (minPrice) {
+            query.price = { $gte: Number(minPrice) };
+        }
+        if (maxPrice) {
+            query.price = { ...query.price, $lte: Number(maxPrice) };
+        }
+    
         const products = await Product.find(query);
         return res.json(products || []); 
     } catch (error) {
@@ -50,22 +50,22 @@ router.get('/', auth.isLoggedIn, async (req, res) => {
 // @desc Add product
 // @access Public
 router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
-    const { name, weight, price } = req.body;
-    let newProduct = new Product ({
-        name,
-        weight,
-        price
-    });
-
-    let error = isProductContainErrors(newProduct);
-    if (error) {
-        return res.status(400).json({ error });
-    }
-
     try {
+        const { name, weight, price } = req.body;
+        let newProduct = new Product ({
+            name,
+            weight,
+            price
+        });
+
+        let error = isProductContainErrors(newProduct);
+        if (error) {
+            return res.status(400).json({ error });
+        }
+
         newProduct = await newProduct.save();
         res.json(newProduct);
-        facebookApi.postFacebookMessage(`We have a new product called "${name}".\nCheck it out!`);
+        facebookApi.postToPage(`We have a new product called "${name}".\nCheck it out!`);
     } catch (e) {
         console.log(e);
         error = 'Problem saving product';
@@ -93,19 +93,19 @@ router.delete('/:id', auth.isAdminLoggedIn, async (req, res) => {
 //  @desc Edit specific product
 //  @access Public
 router.post('/:id', auth.isAdminLoggedIn, async (req, res) => {
-    const { name, weight, price } = req.body;
-    const product = {
-        name,
-        weight,
-        price
-    };
-
-    const error = isProductContainErrors(product);
-    if (error) {
-        return res.status(400).json({ error });
-    }
-
     try {
+        const { name, weight, price } = req.body;
+        const product = {
+            name,
+            weight,
+            price
+        };
+
+        const error = isProductContainErrors(product);
+        if (error) {
+            return res.status(400).json({ error });
+        }
+
         const newProduct = await Product.findByIdAndUpdate(req.params.id, product, { new: true });
         return res.json(newProduct);
     } catch (error){

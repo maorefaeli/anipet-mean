@@ -22,16 +22,17 @@ router.get('/', async (req, res) => {
 // @desc Add store
 // @access Public
 router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
-    const { name, lng, lat } = req.body;
-    
-    let newStore = new Store ({
-        name,
-        location: {
-            type: "Point",
-            coordinates: [lng, lat]
-        }
-    });
     try {
+        const { name, lng, lat } = req.body;
+        
+        let newStore = new Store ({
+            name,
+            location: {
+                type: "Point",
+                coordinates: [lng, lat]
+            }
+        });
+    
         newStore = await newStore.save();
         res.json(newStore);
     } catch (error) {

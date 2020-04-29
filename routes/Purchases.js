@@ -9,16 +9,16 @@ const Purchase = require('../models/Purchase');
 // @desc Add purchase
 // @access Public
 router.post('/add', auth.isLoggedIn, async (req, res) => {
-    const { productId } = req.body;
-    if (req.user.isAdmin) {
-        return res.status(401).json({"error":"Admin can't add purchase"});
-    }
-    let newPurchase = new Purchase ({
-        user: req.user.id,
-        product: productId,
-        date: new Date()
-    });
     try {
+        const { productId } = req.body;
+        if (req.user.isAdmin) {
+            return res.status(401).json({"error":"Admin can't add purchase"});
+        }
+        let newPurchase = new Purchase ({
+            user: req.user.id,
+            product: productId,
+            date: new Date()
+        });
         await newPurchase.save();
         res.json(true);
     } catch (error) {

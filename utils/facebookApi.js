@@ -3,7 +3,7 @@ const keys = require('../config/keys');
 
 FB.setAccessToken(keys.facebookPageAccessToken)
 
-exports.postFacebookMessage = (message) => {
+exports.postToPage = (message) => {
     FB.api(`/${keys.facebookPageId}/feed`, 'POST', { message },
         function(response) {
             console.log(response);
