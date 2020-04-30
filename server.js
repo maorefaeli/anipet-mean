@@ -13,7 +13,7 @@ const stores = require('./routes/Stores');
 const stats = require('./routes/Stats');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Load User model
 const User = require('./models/User');
@@ -113,4 +113,19 @@ app.all('*', (req, res) => {
     res.status(404).send({msg: 'Not found'});
 });
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+// Start server
+const server = app.listen(port, () => console.log(`Server running on port ${port}`));
+
+// Register sockets
+const io = require('socket.io').listen(server);
+
+const allClients = new Map();
+io.sockets.on('connection', (socket) => {
+    allClients.set(socket.id, socket);
+    io.emit('ConnectedClients', allClients.size);
+
+    socket.on('disconnect', () => {
+        allClients.delete(socket.id)
+        io.emit('ConnectedClients', allClients.size);
+    });
+});

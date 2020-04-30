@@ -13,7 +13,6 @@ import { AgmCoreModule } from '@agm/core';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
-import { FacebookModule } from "ngx-facebook";
 import { OrdersComponent } from './orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -48,7 +47,6 @@ import { AccountComponent } from './account/account.component';
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,
-    FacebookModule,
     ProductsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBeXrVLeXmsD_RUXmg7J_HwlUCTnzSXxMw'

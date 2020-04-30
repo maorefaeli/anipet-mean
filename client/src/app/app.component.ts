@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from './_services/user.service';
 import { Role } from './_models/user';
+import { SocketService } from './_services/socket.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { Role } from './_models/user';
 })
 export class AppComponent implements OnInit {
   temperature = '20';
+  connectedClients = 1;
   private allNavLinks = [
     { path: 'home', label: 'Home', roles: [Role.Admin, Role.User, Role.Guest] },
     { path: 'orders', label: 'All Orders', roles: [Role.Admin] },
@@ -21,7 +23,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private userService: UserService) {
+    private userService: UserService,
+    private socketService: SocketService
+  ) {
   }
 
   public get navLinks() {
@@ -43,5 +47,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getWeather();
+    this.socketService.onConnectedClients().subscribe(data => this.connectedClients = data);
   }
 }
