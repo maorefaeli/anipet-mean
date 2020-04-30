@@ -52,7 +52,7 @@ export class ProductComponent implements OnInit {
   public order() {
     this.purchaseService.add(this.product.id).subscribe(
       data => this.setMessage(`${this.product.name} was ordered!`, true),
-      error => this.setMessage(`Order failed: ${error.error.error}`, false)
+      error => this.setMessage(`Order failed: ${error.status === 401 ? 'Please Sign In' : error.error.error}`, false)
     );
   }
 

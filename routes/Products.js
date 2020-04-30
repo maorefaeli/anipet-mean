@@ -17,7 +17,7 @@ const isProductContainErrors = (product) => {
 // @route GET api/products
 // @desc Search products
 // @access Public
-router.get('/', auth.isLoggedIn, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const { name, minWeight, maxWeight, minPrice, maxPrice } = req.query;
         

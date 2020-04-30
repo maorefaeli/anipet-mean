@@ -22,31 +22,36 @@
           <img src="../assets/weather/nice.png" *ngIf="temperature > 15 && temperature < 25">
           <img src="../assets/weather/hot.png" *ngIf="temperature >= 25">
         </div>
-        <p>It is {{ temperature }} degrees</p>
+        <span>It is {{ temperature }} degrees</span>
       </div>
     </div>
-    <div class="col-2 user-management ">
-      <div class="row">
-        <div class="greeting" *ngIf="isLoggedIn()">
-          <div>Hello, {{ getUsername() }}!</div>
-          <sign-out></sign-out>
-        </div>
+    <div class="col-2 user-management">
+      <div class="row" *ngIf="isLoggedIn()">
+        <span>Hello, {{ getUsername() }}!</span>
+        <sign-out></sign-out>
       </div>
       <div class="row" *ngIf="!isLoggedIn()">
-        <ng-template #signIn>
-          <sign-in></sign-in>
-        </ng-template>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
-                [ngbPopover]="signIn" [autoClose]="'outside'" popoverTitle="Sign In">
-          Sign In
-        </button>
-        <ng-template #signUp>
-          <sign-up></sign-up>
-        </ng-template>
-        <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
-                [ngbPopover]="signUp" [autoClose]="'outside'" popoverTitle="Sign Up">
-          Sign up
-        </button>
+        <span>Hello Guest!</span>
+        <div>
+          <ng-template #signIn>
+            <sign-in></sign-in>
+          </ng-template>
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
+                  [ngbPopover]="signIn" [autoClose]="'outside'" popoverTitle="Sign In">
+            Sign In
+          </button>
+          <ng-template #signUp>
+            <sign-up></sign-up>
+          </ng-template>
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
+                  [ngbPopover]="signUp" [autoClose]="'outside'" popoverTitle="Sign Up">
+            Sign Up
+          </button>
+        </div>
+        <div class="text-muted d-flex mt-2">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Sign in to order</span>
+        </div>
       </div>
     </div>
   </div>
@@ -66,7 +71,7 @@
   <router-outlet>
   </router-outlet>
 </main>
-<footer class="rights">
-  <p>&copy; All rights reserved to Maor Refaeli, Kobi Avshalom and Shai Lieberman</p>
+<footer class="rights text-white bg-dark">
+  <span>&copy; All rights reserved to Maor Refaeli, Kobi Avshalom and Shai Lieberman</span>
 </footer>
 </body>

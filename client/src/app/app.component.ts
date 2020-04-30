@@ -10,10 +10,10 @@ import { UserService, Role } from './_services/user.service';
 export class AppComponent implements OnInit {
   temperature = '20';
   private allNavLinks = [
-    { path: 'home', label: 'Home', roles: [Role.User, Role.Admin] },
+    { path: 'home', label: 'Home', roles: [Role.Admin, Role.User, Role.Guest] },
     { path: 'orders', label: 'All Orders', roles: [Role.Admin] },
     { path: 'orders', label: 'My Orders', roles: [Role.User] },
-    { path: 'products', label: 'Products', roles: [Role.User, Role.Admin] },
+    { path: 'products', label: 'Products', roles: [Role.Admin, Role.User, Role.Guest] },
     { path: 'stores', label: 'Stores', roles: [Role.Admin] },
   ];
 
