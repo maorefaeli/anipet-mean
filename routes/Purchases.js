@@ -35,7 +35,7 @@ router.get('/', auth.isLoggedIn, async (req, res) => {
         // Admin see all the purchases
         const query = req.user.isAdmin ? undefined : { user: req.user.id }
         const purchases = await Purchase.find(query)
-            .populate('user', 'username')
+            .populate('user', ['username', 'name', 'city', 'street', 'postal', 'phone', 'email'])
             .populate('product')
             .sort({ date: 'desc' });
         return res.json(purchases || []);
