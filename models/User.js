@@ -17,6 +17,31 @@ const UserSchema = new Schema({
     isAdmin: {
         type: Boolean,
         required: false
+    },
+    // For shipping orders
+    name: {
+        type: String,
+        required: false
+    },
+    city: {
+        type: String,
+        required: false
+    },
+    street: {
+        type: String,
+        required: false
+    },
+    email: {
+        type: String,
+        required: false
+    },
+    phone: {
+        type: String,
+        required: false
+    },
+    postal: {
+        type: Number,
+        required: false
     }
 });
 

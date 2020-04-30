@@ -2,16 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
+import User, { Role } from '../_models/user';
 
 const USERNAME_COOKIE_NAME = 'user';
 
-export const enum Role {
-    Guest,
-    User,
-    Admin
-}
-
-interface User {
+interface LoggedUser {
     username: string;
     role: Role;
 }
@@ -25,13 +20,13 @@ export class UserService {
     };
 
     register(username: string, password: string) {
-        return this.http.post('api/users/register', JSON.stringify({ username, password}), this.httpOptions);
+        return this.http.post<boolean>('api/users/register', JSON.stringify({ username, password}), this.httpOptions);
     }
 
     login(username: string, password: string) {
-        return this.http.post<{isAdmin: true}>('api/login', JSON.stringify({ username, password}), this.httpOptions)
+        return this.http.post<{isAdmin: boolean}>('api/login', JSON.stringify({ username, password}), this.httpOptions)
             .pipe(map(user => {
-                const currentUser: User = {
+                const currentUser: LoggedUser = {
                     username,
                     role: user.isAdmin ? Role.Admin : Role.User
                 };
@@ -45,8 +40,8 @@ export class UserService {
         return this.http.get('api/logout');
     }
 
-    currentUser(): User {
-        const user: User = {
+    currentUser(): LoggedUser {
+        const user: LoggedUser = {
             username: '',
             role: Role.Guest,
         }
@@ -54,5 +49,13 @@ export class UserService {
         if (!cookie) return user;
 
         return { ...user, ...JSON.parse(cookie) };
+    }
+
+    getUserDetails() {
+        return this.http.get<User>(`api/users/details`);
+    }
+
+    updateUserDetails(user: Partial<User>) {
+        return this.http.post<boolean>('api/users/update', JSON.stringify(user), this.httpOptions);
     }
 }

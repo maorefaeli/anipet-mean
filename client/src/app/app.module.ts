@@ -21,6 +21,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductsModule } from "./products/products.module";
 import { MatTableModule } from '@angular/material/table';
+import { AccountComponent } from './account/account.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
     SignUpComponent,
     SignOutComponent,
     OrdersComponent,
+    AccountComponent,
   ],
   imports: [
     FormsModule,

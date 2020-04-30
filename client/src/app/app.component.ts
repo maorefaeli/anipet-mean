@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserService, Role } from './_services/user.service';
+import { UserService } from './_services/user.service';
+import { Role } from './_models/user';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
     { path: 'orders', label: 'My Orders', roles: [Role.User] },
     { path: 'products', label: 'Products', roles: [Role.Admin, Role.User, Role.Guest] },
     { path: 'stores', label: 'Stores', roles: [Role.Admin] },
+    { path: 'account', label: 'My Account', roles: [Role.User] },
   ];
 
   constructor(

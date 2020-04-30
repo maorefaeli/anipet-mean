@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../_services/product.service";
 import Product from "../_models/product";
 import { FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { UserService, Role } from '../_services/user.service';
+import { UserService } from '../_services/user.service';
 import { positiveNumberValidator } from '../_validators/positiveNumber';
+import { Role } from '../_models/user';
 
 @Component({
   selector: 'app-products',

@@ -1,10 +1,11 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import Product from "../../_models/product";
 import {PurchaseService} from "../../_services/purchase.service";
-import { UserService, Role } from 'src/app/_services/user.service';
+import { UserService } from 'src/app/_services/user.service';
 import { ProductService } from 'src/app/_services/product.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { positiveNumberValidator } from 'src/app/_validators/positiveNumber';
+import { Role } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-product',
