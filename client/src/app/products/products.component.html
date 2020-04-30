@@ -10,37 +10,38 @@
     </div>
   </div>
 
-  <div class="col-md-3 side-forms-container">
+  <div class="col-md-3 side-forms-container sticky-top">
 
     <!-- Search -->
     <form [formGroup]="filterForm" class="form-control side-form-container" (ngSubmit)="search()">
-      <div class="name-title title">Name</div>
-      <div class="row">
-        <div class="col">
-          <input class="form-control" formControlName="name" type="text">
-        </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" formControlName="name" class="form-control">
       </div>
-      <div class="row space"></div>
-      <div class="weight-title title">Weight</div>
-      <div class="row">
-        <div class="col">
+
+      <div class="form-group">
+        <label for="name">Weight</label>
+        <div class="input-group">
           <input class="form-control" formControlName="minWeight" type="number" placeholder="Min">
-        </div>
-        <div class="col">
-          <input class="col form-control" formControlName="maxWeight" type="number" placeholder="Max">
+          <div class="input-group-prepend">
+            <span class="input-group-text">-</span>
+          </div>
+          <input class="form-control" formControlName="maxWeight" type="number" placeholder="Max">
         </div>
       </div>
-      <div class="row space"></div>
-      <div class="price-title title">Price</div>
-      <div class="row">
-        <div class="col">
+
+      <div class="form-group">
+        <label for="name">Price</label>
+        <div class="input-group">
           <input class="form-control" formControlName="minPrice" type="number" placeholder="Min">
-        </div>
-        <div class="col">
+          <div class="input-group-prepend">
+            <span class="input-group-text">-</span>
+          </div>
           <input class="col form-control" formControlName="maxPrice" type="number" placeholder="Max">
         </div>
       </div>
-      <div class="row button-row">
+
+      <div class="form-group button-row">
         <button class="btn btn-dark filter-btn" type="button" (click)="clearFilters()">Clear</button>
         <button class="btn btn-dark filter-btn">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
@@ -58,6 +59,7 @@
           <div *ngIf="n.name.errors.required">Name is required</div>
         </div>
       </div>
+
       <div class="form-group">
         <label for="weight">Weight</label>
         <input type="number" formControlName="weight" class="form-control" [ngClass]="{ 'is-invalid': submitted && n.weight.errors }" />
@@ -65,6 +67,7 @@
             <div *ngIf="n.weight.errors.nonPositive">Weight must be positive</div>
         </div>
       </div>
+
       <div class="form-group">
         <label for="price">Price</label>
         <input type="number" formControlName="price" class="form-control" [ngClass]="{ 'is-invalid': submitted && n.price.errors }" />
@@ -72,12 +75,14 @@
             <div *ngIf="n.price.errors.nonPositive">Price must be positive</div>
         </div>
       </div>
+
       <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Add New Product
         </button>
       </div>
+
       <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
       <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
     </form>

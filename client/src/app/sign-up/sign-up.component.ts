@@ -47,7 +47,7 @@ export class SignUpComponent implements OnInit {
         }
       ),
       error => {
-        this.errorMessage = 'Registration failed';
+        this.errorMessage = `Registration failed: ${error.error.error}`;
         this.loading = false;
       },
     );
