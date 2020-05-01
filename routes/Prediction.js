@@ -7,27 +7,56 @@ const Product = require('../models/Product');
 const User = require('../models/User');
 const Purchase = require('../models/Purchase');
 
-async function predict([userPurchases], [allPurchases]) {
+async function predict(userPurchases, allPurchases, userId) {
     //  TODO:
-    //  1. Remove from the all purchases list, all the uids that didnt bought the same products as the relevant uid.
-    //  2. Find the uids that bought the same proudcts as the relevant uid and in overall bought more products.
-    //  3. If find uid in (2), return the next product of the found uid as the prediction.
-    //  4. If uid is not found in (2), retry (2) again with 2 products, if found returns as a prediction the next product, if not, return "no prediciton"
-    console.log("user purchases: " + userPurchases)
-    console.log("all purchases: " + allPurchases)
+    //  1. Find the uids that bought the same proudcts as the relevant uid and in overall bought more products.
+    //  2. If find uid in (1), return the next product of the found uid as the prediction.
+    //  3. If uid is not found in (1), retry (1) again with 2 products, if found returns as a prediction the next product, if not, return "no prediciton"
+    var users = [];
+    var products = [];
+    var overallCounter = 0;
+    var matchCounter = 0;
+    var potential = [];
+    allPurchases.forEach(pur => {
+        if (!(users.includes(pur.user.generationTime)) && !(pur.user.generationTime == userPurchases[0].user.generationTime)) {
+            users.push(pur.user.generationTime);
+            console.log(userPurchases[0].user.generationTime)
+        }
+        if (!(products.includes(pur.product.generationTime)) && (pur.user.generationTime == userPurchases[0].user.generationTime)) 
+            products.push(pur.product.generationTime);
+    });
+    users.forEach(uid => {
+        allPurchases.forEach(purchase => {
+            if (purchase.user.generationTime == uid) {
+                overallCounter++;
+                if (products.includes(purchase.product.generationTime)) {  matchCounter++; }
+                else { potential.push(purchase.product.generationTime); }
+            }
+        });
+        if ((overallCounter > products.length) && (matchCounter > 1)) {
+            return potential;
+        } else {    matchCounter = overallCounter = 0; potential = [];  }
+    });
+    return potential;
 }
 
 router.post('/', async (req, res) => {
     const {userId} = req.body;
+    var predictionName = "";
+    console.log("userId: " + userId)
     try {
         allPurchases = await Purchase.find();
-        userPurchases = allPurchases.filter( function(userPurchase){return (userPurchase.userId===userId);} );
-
+        userPurchases = await Purchase.find({user: userId})
+        allProducts = await Product.find();
         if(!userPurchases){
             return res.status(400).json({"error":"There are no purchases for this user"});
         }
-        prediction = predict(userPurchases, allPurchases)
-        return res.json(prediction);
+        prediction = await predict(userPurchases, allPurchases, userId)
+        allProducts.forEach(product => {
+            if (product._id.generationTime == prediction[0]) { predictionName = product.name; }
+        });
+        return res.json({"name":predictionName});
+        //return res.json(prediction);
     } catch (error) {
         console.log(error);
         res.status(400).json({"error":"Problem getting prediction"})
