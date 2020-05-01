@@ -14,12 +14,22 @@ router.post('/add', auth.isLoggedIn, async (req, res) => {
         if (req.user.isAdmin) {
             return res.status(401).json({"error":"Admin can't add purchase"});
         }
-        let newPurchase = new Purchase ({
+
+        // Save in db
+        let purchase = new Purchase ({
             user: req.user.id,
             product: productId,
             date: new Date()
         });
-        await newPurchase.save();
+        let newPurchase = await purchase.save({ new: true });
+
+        // Notify sockets
+        newPurchase = await Purchase.populate(newPurchase, [
+            { path: 'user', select: ['username', 'name', 'city', 'street', 'postal', 'phone', 'email']},
+            { path: 'product'}
+        ]);
+        req.app.io.emit('NewPurchase', newPurchase);
+
         res.json(true);
     } catch (error) {
         console.log(error);

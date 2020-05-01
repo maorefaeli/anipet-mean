@@ -129,3 +129,6 @@ io.sockets.on('connection', (socket) => {
         io.emit('ConnectedClients', allClients.size);
     });
 });
+
+// Make io available on routes
+app.io = io;

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
-
-type Message = 'ConnectedClients';
+import Purchase from '../_models/purchase';
 
 @Injectable({ providedIn: 'root' })
 export class SocketService {
@@ -12,11 +11,11 @@ export class SocketService {
         this.socket = io.connect({ path: '/sock' });
     }
 
-    private sendEvent(event: Message, message: any) {
+    private sendEvent(event: string, message: any) {
         this.socket.emit(event, { message });
     }
 
-    private onEvent<T>(event: Message): Observable<T> {
+    private onEvent<T>(event: string): Observable<T> {
         return Observable.create((observer) => {
             this.socket.on(event, (message: string) => {
                 observer.next(message);
@@ -26,5 +25,9 @@ export class SocketService {
 
     onConnectedClients() {
         return this.onEvent<number>('ConnectedClients');
+    }
+
+    onNewPurchase() {
+        return this.onEvent<Purchase>('NewPurchase');
     }
 }

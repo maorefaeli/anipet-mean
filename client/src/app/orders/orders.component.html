@@ -1,11 +1,11 @@
 <div class="container">
 
-    <h3 *ngIf="!purchases.length">
+    <h3 *ngIf="!dataSource.data.length">
         No Orders
     </h3>
 
-    <div *ngIf="purchases.length">
-        <table mat-table [dataSource]="purchases" class="mat-elevation-z8">
+    <div *ngIf="dataSource.data.length">
+        <table #table mat-table [dataSource]="dataSource"  mat-sort class="mat-elevation-z8">
             
             <!-- Date Column -->
             <ng-container matColumnDef="date">
@@ -37,8 +37,8 @@
                 <mat-cell *matCellDef="let element"> {{ getAddress(element) }} </mat-cell>
             </ng-container>
         
-            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns;"></mat-header-row>
+            <mat-row @colorFadeOut *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </table>
     </div>
 
