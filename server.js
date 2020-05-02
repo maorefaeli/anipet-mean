@@ -11,6 +11,7 @@ const products = require('./routes/Products');
 const purchases = require('./routes/Purchases');
 const stores = require('./routes/Stores');
 const stats = require('./routes/Stats');
+const predictions = require('./routes/Prediction');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -89,6 +90,7 @@ app.use('/products', products)
 app.use('/purchases', purchases)
 app.use('/stores', stores)
 app.use('/stats', stats)
+app.use('/predictions', predictions)
 
 // Handle login
 app.post('/login', passport.authenticate('local', { failWithError: true }),
