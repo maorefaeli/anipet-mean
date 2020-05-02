@@ -5,6 +5,7 @@ const session = require("express-session");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const MongoStore = require('connect-mongo')(session);
+const morgan = require('morgan');
 
 const users = require('./routes/Users');
 const products = require('./routes/Products');
@@ -79,18 +80,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(morgan('dev'))
 
 app.get('/', (req, res) => {
     res.send({msg: 'hello! Server is up'});
 });
 
 // Use Routes
-app.use('/users', users)
-app.use('/products', products)
-app.use('/purchases', purchases)
-app.use('/stores', stores)
-app.use('/stats', stats)
-app.use('/predictions', predictions)
+app.use('/users', users);
+app.use('/products', products);
+app.use('/purchases', purchases);
+app.use('/stores', stores);
+app.use('/stats', stats);
+app.use('/predictions', predictions);
 
 // Handle login
 app.post('/login', passport.authenticate('local', { failWithError: true }),
