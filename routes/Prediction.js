@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const keys = require('../config/keys');
+const auth = require('../utils/auth');
 
 // Load models
 const Product = require('../models/Product');
@@ -40,9 +41,8 @@ async function predict(userPurchases, allPurchases, userId) {
     return potential;
 }
 
-router.post('/', async (req, res) => {
+router.post('/', auth.isLoggedIn, async (req, res) => {
     const {userId} = req.body;
-    var predictionName = "";
     console.log("userId: " + userId)
     try {
         allPurchases = await Purchase.find();
