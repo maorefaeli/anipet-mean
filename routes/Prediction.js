@@ -53,10 +53,9 @@ router.post('/', async (req, res) => {
         }
         prediction = await predict(userPurchases, allPurchases, userId)
         allProducts.forEach(product => {
-            if (product._id.generationTime == prediction[0]) { predictionName = product.name; }
+            if (product._id.generationTime == prediction[0]) { predictProduct = product; }
         });
-        return res.json({"name":predictionName});
-        //return res.json(prediction);
+        return res.json(predictProduct);
     } catch (error) {
         console.log(error);
         res.status(400).json({"error":"Problem getting prediction"})
