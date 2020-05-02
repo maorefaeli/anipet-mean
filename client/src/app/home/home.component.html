@@ -4,12 +4,12 @@
       <section>
         <p>
           Hello there,<br>
-          Welcome to our online pet food store <b>Anipet</b>!
+          Welcome to our online pet food store <span class="shadow">Anipet!</span>
         </p>
         <p *ngIf="recommendedProduct">
           Based on our costumers orders,<br>
           We thought you might like the product: 
-          <a routerLink="/products" fragment="{{ recommendedProduct.id }}">{{ recommendedProduct.name }}</a>.<br>
+          <a routerLink="/products" fragment="{{ recommendedProduct.id }}" class="enlarge">{{ recommendedProduct.name }}</a>.<br>
           Check it out!
         </p>
       </section>
