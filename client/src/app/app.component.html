@@ -16,7 +16,7 @@
     </div>
     <div class="col-6 header-center-container">
       <div class="connected-clients">
-        There are<span class="text-danger p-1">{{ connectedClients }}</span>connected clients
+        There {{ connectedClients === 1 ? 'is' : 'are'}}<span class="text-danger p-1">{{ connectedClients }}</span>connected client{{ connectedClients === 1 ? '' : 's'}}
       </div>
       <div class="weather">
         <h5>Weather</h5>

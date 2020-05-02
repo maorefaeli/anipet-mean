@@ -15,3 +15,11 @@ export const fadeIn = trigger('fadeIn', [
         ])
     ])
 ]);
+
+export const scrollToAndBlink = (elementId: string) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.classList.add('blink-me'); // Defined on styles.sass
+    }
+}
