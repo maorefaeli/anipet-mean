@@ -2,7 +2,7 @@
   <h3 class="col-md-8" *ngIf="!products.length">No Products</h3>
 
   <!-- Product list -->
-  <div class="products-container col-md-8" *ngIf="products.length">
+  <div class="products-container col-md-7" *ngIf="products.length">
     <div class="row food-row" *ngFor="let product of products">
       <div class="product">
         <app-product [product]="product" (productDeleted)="removeProductFromList(product.id)"></app-product>
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div class="col-md-3 side-forms-container sticky-top">
+  <div class="col-md-5 side-forms-container sticky-top">
 
     <!-- Search -->
     <form [formGroup]="filterForm" class="form-control side-form-container" (ngSubmit)="search()">
@@ -42,9 +42,9 @@
       </div>
 
       <div class="form-group button-row">
-        <button class="btn btn-dark filter-btn" type="button" (click)="clearFilters()">Clear</button>
-        <button class="btn btn-dark filter-btn">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        <button class="btn btn-dark" type="button" (click)="clearFilters()">Clear</button>
+        <button class="btn btn-dark" [disabled]="loadingSearch">
+          <span *ngIf="loadingSearch" class="spinner-border spinner-border-sm mr-1"></span>
           Search
         </button>
       </div>
@@ -77,8 +77,8 @@
       </div>
 
       <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        <button [disabled]="loadingNewProduct" class="btn btn-primary">
+            <span *ngIf="loadingNewProduct" class="spinner-border spinner-border-sm mr-1"></span>
             Add New Product
         </button>
       </div>

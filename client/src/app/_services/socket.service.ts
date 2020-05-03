@@ -8,7 +8,7 @@ export class SocketService {
     private socket: SocketIOClient.Socket;
 
     constructor() {
-        this.socket = io.connect({ path: '/sock' });
+        this.socket = io.connect({ path: '/socket' });
     }
 
     private sendEvent(event: string, message: any) {

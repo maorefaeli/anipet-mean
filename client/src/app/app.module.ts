@@ -20,6 +20,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductsModule } from "./products/products.module";
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { AccountComponent } from './account/account.component';
 
 import { StatisticsComponent } from './statistics/statistics.component';
@@ -48,6 +50,8 @@ import {LineChartComponent} from "./statistics/charts/line-chart/line-charts.com
     MatListModule,
     MatIconModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,

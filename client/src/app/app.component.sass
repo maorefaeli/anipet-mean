@@ -6,9 +6,20 @@ body
   margin-right: 2%
   margin-top: 3%
 
+.banner
+  flex-wrap: nowrap
+
+.logo-container
+  display: flex
+  align-items: center
+
+  img
+    width: 100%
+
 .user-management .row
   display: flex
   flex-direction: column
+  min-width: 200px
 
 .header-center-container
   display: flex
@@ -17,6 +28,9 @@ body
   .connected-clients
     display: flex
     align-items: center
+    flex-wrap: wrap
+    justify-content: center
+    align-self: center
 
     span
       font-weight: bold
@@ -26,6 +40,7 @@ body
     display: flex
     flex-direction: column
     align-items: center
+    min-width: 150px
 
     .weather-img
       width: 60px
@@ -47,8 +62,10 @@ main
 
 footer
   height: $footer-height
+  display: flex
+  justify-content: center
+  align-items: center
   padding: 5px
-  text-align: center
   margin-top: 2%
 
 .tick text

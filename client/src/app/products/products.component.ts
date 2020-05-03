@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { UserService } from '../_services/user.service';
 import { positiveNumberValidator } from '../_validators/positiveNumber';
 import { Role } from '../_models/user';
+import { ActivatedRoute } from '@angular/router';
+import { scrollToAndBlink } from '../_animations/template.animations';
 
 @Component({
   selector: 'app-products',
@@ -26,7 +28,9 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private formBuilder: FormBuilder,
-    private userService: UserService) {
+    private userService: UserService,
+    private route: ActivatedRoute,
+  ) {
   }
 
   get n() { return this.newProductForm.controls; }
@@ -50,7 +54,11 @@ export class ProductsComponent implements OnInit {
       minPrice: [''],
       maxPrice: [''],
     });
-    this.search();
+    this.search(() => {
+      this.route.fragment.subscribe((fragment: string) => {
+        setTimeout(() => scrollToAndBlink(fragment), 500);
+      })
+    });
   }
 
   public addProduct() {
@@ -77,7 +85,7 @@ export class ProductsComponent implements OnInit {
     );
   }
 
-  public search() {
+  public search(onLoaded?: () => void) {
     this.loadingSearch = true;
     this.productService.search(
       this.f.name.value,
@@ -89,6 +97,7 @@ export class ProductsComponent implements OnInit {
       data => {
         this.products = data;
         this.loadingSearch = false;
+        onLoaded && onLoaded();
       },
       error => {
         this.products = [];

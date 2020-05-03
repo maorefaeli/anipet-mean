@@ -2,8 +2,8 @@ import { trigger, sequence, animate, transition, style, state } from '@angular/a
 
 export const colorFadeOut = trigger('colorFadeOut', [
     state('void', style({ background: 'cyan', borderBottomColor: 'cyan', opacity: 0, transform: 'translateX(-550px)', 'box-shadow': 'none' })),
-    transition('void => *', [animate("1s ease")]),
-    transition('* => void', [animate("1s ease")]),
+    transition('void => *', [animate(".5s ease")]),
+    transition('* => void', [animate(".5s ease")]),
 ]);
 
 export const fadeIn = trigger('fadeIn', [
@@ -15,3 +15,11 @@ export const fadeIn = trigger('fadeIn', [
         ])
     ])
 ]);
+
+export const scrollToAndBlink = (elementId: string) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.classList.add('blink-me'); // Defined on styles.sass
+    }
+}

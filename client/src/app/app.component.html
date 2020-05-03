@@ -8,15 +8,15 @@
 </head>
 <body>
 <header class="container">
-  <div class="row">
-    <div class="col-4">
+  <div class="row banner">
+    <div class="col-4 logo-container">
       <a href="/">
         <img class="rounded float-left logo" src="../assets/logo1.png" alt="logo"/>
       </a>
     </div>
     <div class="col-6 header-center-container">
       <div class="connected-clients">
-        There are<span class="text-danger p-1">{{ connectedClients }}</span>connected clients
+        There {{ connectedClients === 1 ? 'is' : 'are'}}<span class="text-danger p-1">{{ connectedClients }}</span>connected client{{ connectedClients === 1 ? '' : 's'}}
       </div>
       <div class="weather">
         <h5>Weather</h5>
@@ -35,7 +35,7 @@
       </div>
       <div class="row" *ngIf="!isLoggedIn()">
         <span>Hello Guest!</span>
-        <div>
+        <div class="d-inline-flex">
           <ng-template #signIn>
             <sign-in></sign-in>
           </ng-template>
@@ -73,6 +73,7 @@
 <main>
   <router-outlet>
   </router-outlet>
+  <br>
 </main>
 <footer class="rights text-white bg-dark">
   <span>&copy; All rights reserved to Maor Refaeli, Kobi Avshalom and Shai Lieberman</span>
