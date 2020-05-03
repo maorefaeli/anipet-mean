@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.socketService.onConnectedClients().subscribe(data => this.connectedClients = data);
     // this.getWeather();
   }
 }
