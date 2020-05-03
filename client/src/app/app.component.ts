@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { UserService } from './_services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import { UserService} from './_services/user.service';
 import { Role } from './_models/user';
 import { SocketService } from './_services/socket.service';
 
@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
     { path: 'orders', label: 'My Orders', roles: [Role.User] },
     { path: 'products', label: 'Products', roles: [Role.Admin, Role.User, Role.Guest] },
     { path: 'stores', label: 'Stores', roles: [Role.Admin] },
+    { path: 'statistics', label: 'Statistics', roles: [Role.Admin]},
     { path: 'account', label: 'My Account', roles: [Role.User] },
   ];
 
@@ -47,6 +48,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getWeather();
-    this.socketService.onConnectedClients().subscribe(data => this.connectedClients = data);
   }
 }

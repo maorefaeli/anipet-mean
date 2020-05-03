@@ -9,12 +9,12 @@ import Store from '../_models/store';
 })
 export class HomeComponent implements OnInit {
   stores: Store[];
-  
+
   constructor(
     private storeService: StoreService
   ) { }
-  
+
   ngOnInit(): void {
     this.storeService.get().subscribe(data => this.stores = data, error => this.stores = []);
-  } 
+  }
 }

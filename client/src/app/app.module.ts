@@ -22,6 +22,8 @@ import { ProductsModule } from "./products/products.module";
 import { MatTableModule } from '@angular/material/table';
 import { AccountComponent } from './account/account.component';
 
+import { StatisticsComponent } from './statistics/statistics.component';
+import {LineChartComponent} from "./statistics/charts/line-chart/line-charts.component";
 
 @NgModule({
   declarations: [
@@ -32,8 +34,10 @@ import { AccountComponent } from './account/account.component';
     SignInComponent,
     SignUpComponent,
     SignOutComponent,
+    StatisticsComponent,
     OrdersComponent,
     AccountComponent,
+    LineChartComponent,
   ],
   imports: [
     FormsModule,
