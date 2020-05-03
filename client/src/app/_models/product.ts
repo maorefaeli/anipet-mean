@@ -3,4 +3,5 @@ export default class Product {
     name: string;
     weight: number;
     price: number;
+    image: string;
 }

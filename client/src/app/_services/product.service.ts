@@ -30,15 +30,15 @@ export class ProductService {
         return this.http.get<Product[]>('api/products', { params });
     }
 
-    add(name: string, weight: number, price: number) {
-        return this.http.post<Product>('api/products/add', JSON.stringify({ name, weight, price }), this.httpOptions);
+    add(name: string, weight: number, price: number, image: string) {
+        return this.http.post<Product>('api/products/add', JSON.stringify({ name, weight, price, image }), this.httpOptions);
     }
 
     delete(id: string) {
         return this.http.delete<boolean>(`api/products/${id}`);
     }
 
-    edit(id: string, name: string, weight: number, price: number) {
-        return this.http.post<Product>(`api/products/${id}`, JSON.stringify({ name, weight, price }), this.httpOptions);
+    edit(id: string, name: string, weight: number, price: number, image: string) {
+        return this.http.post<Product>(`api/products/${id}`, JSON.stringify({ name, weight, price, image }), this.httpOptions);
     }
 }

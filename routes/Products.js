@@ -51,11 +51,12 @@ router.get('/', async (req, res) => {
 // @access Public
 router.post('/add', auth.isAdminLoggedIn, async (req, res) => {
     try {
-        const { name, weight, price } = req.body;
+        const { name, weight, price, image } = req.body;
         let newProduct = new Product ({
             name,
             weight,
-            price
+            price,
+            image
         });
 
         let error = isProductContainErrors(newProduct);
@@ -94,11 +95,12 @@ router.delete('/:id', auth.isAdminLoggedIn, async (req, res) => {
 //  @access Public
 router.post('/:id', auth.isAdminLoggedIn, async (req, res) => {
     try {
-        const { name, weight, price } = req.body;
+        const { name, weight, price, image } = req.body;
         const product = {
             name,
             weight,
-            price
+            price,
+            image
         };
 
         const error = isProductContainErrors(product);

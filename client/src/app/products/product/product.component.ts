@@ -70,6 +70,7 @@ export class ProductComponent implements OnInit {
       name: [this.product.name, Validators.required],
       weight: [this.product.weight, positiveNumberValidator()],
       price: [this.product.price, positiveNumberValidator()],
+      image: [this.product.image]
     });
   }
 
@@ -87,7 +88,9 @@ export class ProductComponent implements OnInit {
 
     this.loading = true;
 
-    this.productService.edit(this.product.id, this.f.name.value, this.f.weight.value, this.f.price.value).subscribe(
+    this.productService.edit(
+      this.product.id, this.f.name.value, this.f.weight.value, this.f.price.value, this.f.image.value
+    ).subscribe(
       data => {
         this.setMessage('Product updated', true);
         this.editMode = false;
@@ -99,5 +102,9 @@ export class ProductComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  public getImageURL(product) {
+    return `../../../assets/products/${product.image || 'dog1.png'}`
   }
 }

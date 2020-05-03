@@ -46,7 +46,9 @@ export class ProductsComponent implements OnInit {
       name: ['', Validators.required],
       weight: ['', positiveNumberValidator()],
       price: ['', positiveNumberValidator()],
+      image: [''],
     });
+
     this.filterForm = this.formBuilder.group({
       name: [''],
       minWeight: [''],
@@ -54,6 +56,7 @@ export class ProductsComponent implements OnInit {
       minPrice: [''],
       maxPrice: [''],
     });
+
     this.search(() => {
       this.route.fragment.subscribe((fragment: string) => {
         setTimeout(() => scrollToAndBlink(fragment), 500);
@@ -72,7 +75,7 @@ export class ProductsComponent implements OnInit {
     }
 
     this.loadingNewProduct = true;
-    this.productService.add(this.n.name.value, this.n.weight.value, this.n.price.value).subscribe(
+    this.productService.add(this.n.name.value, this.n.weight.value, this.n.price.value, this.n.image.value).subscribe(
       data => {
         this.products.unshift(data);
         this.successMessage = 'Product added'

@@ -2,7 +2,7 @@
 
   <!-- Picture -->
   <div class="product-image col-md-4">
-    <img alt="" src="../../../assets/foodPic.jpg">
+    <img src="{{ getImageURL(product) }}" alt="Image Not Found">
   </div>
 
   <!-- Info -->
@@ -31,6 +31,11 @@
             <div *ngIf="f.price.errors.nonPositive">Price must be positive</div>
         </div>
       </div>
+      <div class="form-group">
+        <label for="image">Image</label>
+        <input type="text" formControlName="image" class="form-control">
+      </div>
+
       <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
