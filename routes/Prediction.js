@@ -68,30 +68,41 @@ router.get('/', async (req, res) => {
         // Get the connected user id if existing
         const userId = req.user ? req.user.id : '';
 
-        let productIds;
+        let productIds = [];
         const allPurchases = await Purchase.find();
 
         // Check if the user had purchases
+        // Apply SVM only if there are purchases for the user so the algorithm logic will be meaningful
         if (userId && allPurchases.some(purchase => purchase.user._id.equals(userId))) {
-            // Apply SVM only if there are purchases for the user so the algorithm logic will be meaningful
             productIds = getProductIdPredictionsWithSVM(allPurchases, userId);
-        } else {
-            // If the user had no purchases extract all the products that were bought by anyone
+        }
+        
+        // If the prediction returned nothing or the user had no purchase,
+        // extract all the products that were bought from all the other users
+        if (!productIds.length) {
             productIds = allPurchases.map(purchase => purchase.product._id.toString());
         }
 
-        // Find the id that is the most popular among the results
-        const predictionProductId = getMostPopularId(productIds);
+        let product;
 
-        let product = await Product.findById(predictionProductId);
+        // If there are product ids we found, get the most popular among the results
+        if (productIds.length) {
+            product = await Product.findById(getMostPopularId(productIds));
+        }
 
-        // If product not found, return the first one as default
+        // If product was not found or there are no purchases, return the first one as default
         if (!product) {
             console.error("Prediction: Missing product id", predictionProductId);
             product = await Product.findOne();
         }
 
-        return res.json(product);
+        // Found a product, return it
+        if (product) {
+            return res.json(product);
+        }
+
+        // If we still haven't found a product, than there are no products on the system
+        return res.status(500).json({"error":"There are no products"})
     } catch (error) {
         console.log(error);
         res.status(400).json({"error":"Problem getting prediction"})

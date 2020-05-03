@@ -6,7 +6,7 @@
             "^/api": ""
         }
     },
-    "/sock/*": {
+    "/socket/*": {
         "target": "http://localhost:3000/socket.io",
         "secure": false
     }

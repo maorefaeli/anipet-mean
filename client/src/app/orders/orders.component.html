@@ -1,15 +1,24 @@
 <div class="container">
+    <div *ngIf="loading">
+        Loading Orders...
+        <span class="spinner-border spinner-border-sm mr-1"></span>
+    </div>
 
-    <h3 *ngIf="!dataSource.data.length">
+    <h3 *ngIf="!loading && !dataSource.data.length">
         No Orders
     </h3>
 
-    <div *ngIf="dataSource.data.length">
-        <table #table mat-table [dataSource]="dataSource"  mat-sort class="mat-elevation-z8">
-            
+    <div *ngIf="!loading && dataSource.data.length">
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Product, Price{{ isAdmin ? ', User' : ''}}">
+        </mat-form-field>
+                    
+        <table #table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
             <!-- Date Column -->
             <ng-container matColumnDef="date">
-                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef><mat-icon>arrow_downward</mat-icon> Date </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{ element.date | date:'medium' }} </mat-cell>
             </ng-container>
         

@@ -20,6 +20,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductsModule } from "./products/products.module";
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { AccountComponent } from './account/account.component';
 
 
@@ -44,6 +46,8 @@ import { AccountComponent } from './account/account.component';
     MatListModule,
     MatIconModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,
