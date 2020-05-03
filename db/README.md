@@ -31,10 +31,14 @@ sudo chmod 777 data/mongodb
 Run `./anipet start` to get mongo up and running on `localhost:27017`.
 
 ## Stop
-Run `./anipet stop` to stop Anipet db
+Run `./anipet stop` to stop Anipet DB
 
 ## Wipe
-Run `./anipet wipe` to wipe out the db and start fresh
+Run `./anipet wipe` to wipe out the DB and start fresh.
 
-## Take db dump
-Run `./anipet dump` to take a new db dump
+## Restore
+Run `./anipet restore` to restore DB with existing data.  
+Run this command for the first time see the site with some content.
+
+## Take DB dump
+Run `./anipet dump` to take a new DB dump
