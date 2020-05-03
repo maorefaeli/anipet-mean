@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./stores.component.sass']
 })
 export class StoresComponent implements OnInit {
+  loadingStores = true;  
   storeForm: FormGroup;
   loading = false;
   submitted = false;
@@ -24,7 +25,15 @@ export class StoresComponent implements OnInit {
   get f() { return this.storeForm.controls; }
 
   ngOnInit() {
-    this.storeService.get().subscribe(data => this.stores = data, error => this.stores = []);
+    this.storeService.get().subscribe(
+      data => {
+        this.stores = data;
+        this.loadingStores = false;
+      },
+      error => {
+        this.stores = [];
+        this.loadingStores = false;
+      });
     this.storeForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       lng: [0, [Validators.required]],

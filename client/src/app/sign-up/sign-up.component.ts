@@ -40,7 +40,10 @@ export class SignUpComponent implements OnInit {
 
     this.usersService.register(this.f.username.value, this.f.password.value).subscribe(
       data => this.usersService.login(this.f.username.value, this.f.password.value).subscribe(
-        data => this.loading = false,
+        data => {
+          this.loading = false;
+          location.href = '/';
+        },
         error => {
           this.errorMessage = 'User is registered but login failed';
           this.loading = false;

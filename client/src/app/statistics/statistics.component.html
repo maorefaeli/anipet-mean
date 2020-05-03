@@ -1,6 +1,16 @@
 <div class="container">
-  <h1 class="heading">orders statistics</h1>
-  <line-chart [dataObservable]="ordersData"></line-chart>
-  <h1 class="heading">products statistics</h1>
-  <line-chart [dataObservable]="productsData"></line-chart>
+  <section>
+    <h1 class="heading">Orders Statistics</h1>
+    <line-chart [dataObservable]="ordersData"></line-chart>
+    <article>
+      The above graph show how many orders were on each day
+    </article>
+  </section>
+  <section>
+    <h1 class="heading">Products Statistics</h1>
+    <line-chart [dataObservable]="productsData"></line-chart>
+    <article>
+      The above graph show for each product how many items it was purchased
+    </article>
+  </section>
 </div>

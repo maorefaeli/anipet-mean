@@ -2,6 +2,10 @@
   column-count: 2;
 }
 
+.container section article {
+  text-align: center;
+}
+
 .heading {
   text-align: center;
 }

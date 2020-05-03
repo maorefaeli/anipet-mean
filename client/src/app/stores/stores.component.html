@@ -39,7 +39,14 @@
         <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
     </form>
 
-    <div *ngIf="stores.length">
+    <div *ngIf="loadingStores">
+        Loading Stores...
+        <span class="spinner-border spinner-border-sm mr-1"></span>
+    </div>
+    <h3 *ngIf="!loadingStores && !stores.length">
+        No Stores
+    </h3>
+    <div *ngIf="!loadingStores && stores.length">
         <h3>Stores</h3>
         <mat-list class="stores">
             <mat-list-item *ngFor="let store of stores">
@@ -55,8 +62,5 @@
             </mat-list-item>
         </mat-list>
     </div>
-    <h3 *ngIf="!stores.length">
-        No Stores
-    </h3>
 
 </div>
