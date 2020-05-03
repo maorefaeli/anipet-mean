@@ -59,7 +59,10 @@ router.get('/products', auth.isAdminLoggedIn, async (req, res) => {
             { $match: { date: { $gte: getDateBeforeXDays(getIntOrDefault(days, DEFAULT_DAYS)) } } },
 
             // Group purchases by product id and count
-            { $group: { _id: '$product', count: { $sum: 1 } }}
+            { $group: { _id: '$product', count: { $sum: 1 } }},
+
+            // Sort ascending string
+            { $sort: { _id: 1 } }
         ]);
 
         // Join with Products collection
