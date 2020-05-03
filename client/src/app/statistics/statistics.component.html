@@ -1,16 +1,24 @@
 <div class="container">
-  <section>
-    <h1 class="heading">Orders Statistics</h1>
-    <line-chart [dataObservable]="ordersData"></line-chart>
-    <article>
-      The above graph show how many orders were on each day
-    </article>
-  </section>
-  <section>
-    <h1 class="heading">Products Statistics</h1>
-    <line-chart [dataObservable]="productsData"></line-chart>
-    <article>
-      The above graph show for each product how many items it was purchased
-    </article>
-  </section>
+  <mat-form-field>
+    <mat-label>Show data from the last X days</mat-label>
+    <input type="number" matInput (keyup.enter)="applyFilter($event)" placeholder="Default is {{ DEFAULT_DAYS }} days">
+  </mat-form-field>
+  <div class="columns">
+    <section>
+      <h1 class="heading">Orders Statistics</h1>
+      <h3 *ngIf="!ordersData.length">No Data</h3>
+      <line-chart *ngIf="ordersData.length" [dataPoints]="ordersData"></line-chart>
+      <article>
+        The above graph show how many orders were on each day
+      </article>
+    </section>
+    <section>
+      <h1 class="heading">Products Statistics</h1>
+      <h3 *ngIf="!productsData.length">No Data</h3>
+      <line-chart *ngIf="productsData.length" [dataPoints]="productsData"></line-chart>
+      <article>
+        The above graph show for each product how many items it was purchased
+      </article>
+    </section>
+  </div>
 </div>

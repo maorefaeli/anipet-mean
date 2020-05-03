@@ -1,9 +1,18 @@
-.container {
+.columns {
   column-count: 2;
 }
 
-.container section article {
+.columns section {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns section > * {
   text-align: center;
+}
+
+.mat-form-field {
+  width: 230px;
 }
 
 .heading {

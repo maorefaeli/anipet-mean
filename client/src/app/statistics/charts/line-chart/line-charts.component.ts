@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, Host, Input, ViewChild} from '@ang
 import {fromEvent, Observable} from 'rxjs';
 import {debounceTime, tap} from 'rxjs/operators';
 import * as d3 from 'd3';
-import {StatisticsService} from "../../../_services/statistics.service";
+import {DataPoint} from "../../../_services/statistics.service";
 
 @Component({
   selector: 'line-chart',
@@ -19,37 +19,39 @@ import {StatisticsService} from "../../../_services/statistics.service";
 })
 export class LineChartComponent implements AfterViewInit {
   @ViewChild('svg', {static: false}) svgRef: ElementRef<SVGElement>;
-  @Input() dataObservable: Observable<any[]>;
+  @Input() dataPoints: DataPoint[];
   loading = false;
 
-  constructor(@Host() private host: ElementRef<HTMLElement>, private service: StatisticsService) {
+  constructor(@Host() private host: ElementRef<HTMLElement>) {
+  }
+
+  ngAfterViewChecked() {
+    this.load();
   }
 
   ngAfterViewInit() {
-    this.dataObservable.subscribe(rawData => {
-      let data: { data: number }[][] = [];
-      // let dataArray: { data: number }[] = [];
-      // rawData.forEach((value: { date: string, y: number }) => {
-      //   dataArray.push({data: value.y})
-      // });
-      data.push(rawData);
+    this.load();
+  }
+
+  private load() {
+    const data: DataPoint[][] = [];
+    data.push(this.dataPoints);
+    const {width} = this.host.nativeElement.getBoundingClientRect();
+    const height = width / (16 / 9);
+    const margin = Math.min(Math.max(width * 0.1, 20), 50);
+
+    const svg = d3.select(this.svgRef.nativeElement)
+    this.drawChart(svg, width, height, margin, data);
+    fromEvent(window, 'resize')
+      .pipe(
+        tap(() => this.loading = true),
+        debounceTime(300)
+      ).subscribe(() => {
       const {width} = this.host.nativeElement.getBoundingClientRect();
       const height = width / (16 / 9);
       const margin = Math.min(Math.max(width * 0.1, 20), 50);
-
-      const svg = d3.select(this.svgRef.nativeElement)
       this.drawChart(svg, width, height, margin, data);
-      fromEvent(window, 'resize')
-        .pipe(
-          tap(() => this.loading = true),
-          debounceTime(300)
-        ).subscribe(() => {
-        const {width} = this.host.nativeElement.getBoundingClientRect();
-        const height = width / (16 / 9);
-        const margin = Math.min(Math.max(width * 0.1, 20), 50);
-        this.drawChart(svg, width, height, margin, data);
-        this.loading = false;
-      });
+      this.loading = false;
     });
   }
 
