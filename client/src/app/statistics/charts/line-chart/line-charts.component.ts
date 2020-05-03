@@ -28,14 +28,11 @@ export class LineChartComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataObservable.subscribe(rawData => {
       let data: { data: number }[][] = [];
-      let dataArray: { data: number }[] = [];
-      rawData.forEach((value: { date: string, y: number }) => {
-        dataArray.push({data: value.y + 0.01})
-      });
-      data.push(dataArray);
-      // const data = [
-      //   this.generateData(20, 10)
-      // ];
+      // let dataArray: { data: number }[] = [];
+      // rawData.forEach((value: { date: string, y: number }) => {
+      //   dataArray.push({data: value.y})
+      // });
+      data.push(rawData);
       const {width} = this.host.nativeElement.getBoundingClientRect();
       const height = width / (16 / 9);
       const margin = Math.min(Math.max(width * 0.1, 20), 50);
@@ -68,8 +65,8 @@ export class LineChartComponent implements AfterViewInit {
 
     svg.selectAll('g').remove();
 
-    const xScale = d3.scaleLinear()
-      .domain([0, n - 1])
+    const xScale = d3.scalePoint()
+      .domain(data[0].map((i) => i.x))
       .range([0, chartWidth]);
 
     const yScale = d3.scaleLinear()
@@ -77,10 +74,10 @@ export class LineChartComponent implements AfterViewInit {
       .range([chartHeight, 0]);
 
     const line = d3.line()
-      .defined(d => !isNaN(d.data))
-      .x((d, i) => xScale(i))
-      .y(d => yScale(d.data))
-      .curve(d3.curveMonotoneX)
+      .defined(d => d.x)
+      .x(d => xScale(d.x))
+      .y(d => yScale(d.y))
+      .curve(d3.curveMonotoneX);
 
     svg.append('g')
       .attr('class', 'x axis')
@@ -110,13 +107,9 @@ export class LineChartComponent implements AfterViewInit {
     });
   }
 
-  private generateData(n, maxValue) {
-    return new Array(n).fill(null).map(() => ({data: 1}))
-  }
-
-  private getMaxValue(series: { data: number }[][]): number {
+  private getMaxValue(series: { x:number, y: number }[][]): number {
     return series.reduce((serieMax, serie) => {
-      return Math.max(serieMax, serie.reduce((max, value) => Math.max(max, value.data), -Infinity))
+      return Math.max(serieMax, serie.reduce((max, value) => Math.max(max, value.y), -Infinity))
     }, -Infinity);
   }
 }
