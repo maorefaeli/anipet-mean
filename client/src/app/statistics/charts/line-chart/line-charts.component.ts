@@ -29,8 +29,8 @@ export class LineChartComponent implements AfterViewInit {
     this.dataObservable.subscribe(rawData => {
       let data: { data: number }[][] = [];
       let dataArray: { data: number }[] = [];
-      rawData.forEach((value: { date: string, count: number }) => {
-        dataArray.push({data: value.count + 0.01})
+      rawData.forEach((value: { date: string, y: number }) => {
+        dataArray.push({data: value.y + 0.01})
       });
       data.push(dataArray);
       // const data = [

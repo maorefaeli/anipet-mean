@@ -31,13 +31,13 @@ router.get('/orders', auth.isAdminLoggedIn, async (req, res) => {
             { $project: { date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } } } },
 
             // Group purchases by date and count
-            { $group: { _id: '$date', count: { $sum: 1 } } },
+            { $group: { _id: '$date', y: { $sum: 1 } } },
 
             // Sort the results ascending
             { $sort: { _id: 1 } },
 
             // Map fields
-            { $project: { date: '$_id', count: true, _id: false } }
+            { $project: { x: '$_id', y: true, _id: false } }
         ])
     
         res.json(orders || []);
@@ -67,8 +67,8 @@ router.get('/products', auth.isAdminLoggedIn, async (req, res) => {
         
         // Filter products that were not matched in the join and format the results
         const results = products.filter((p) => p._id).map((p) => ({
-            product: p._id.name,
-            count: p.count
+            x: p._id.name,
+            y: p.count
         }));
 
         res.json(results || []);
