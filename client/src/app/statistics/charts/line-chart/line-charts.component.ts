@@ -9,7 +9,10 @@ import {StatisticsService} from "../../../_services/statistics.service";
   template: `
     <div class="wrapper">
       <svg #svg/>
-      <div *ngIf="loading" class="loader">Loading</div>
+      <div *ngIf="loading" class="loader text-center">
+        Loading...
+        <span class="spinner-border spinner-border-sm mr-1"></span>
+      </div>
     </div>
   `,
   styleUrls: ['./line-charts.component.sass']
