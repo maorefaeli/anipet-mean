@@ -22,5 +22,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.storeService.get().subscribe(data => this.stores = data, error => this.stores = []);
     this.predictionService.getProduct().subscribe(data => this.recommendedProduct = data);
+    let canvas : any = document.getElementById("myCanvas");
+    let context = canvas.getContext('2d');
+    let base_image = new Image();
+    base_image.src = '../../assets/community.png';
+    base_image.onload = function(){
+      context.drawImage(base_image, 0, 0);
+    }
   }
 }
