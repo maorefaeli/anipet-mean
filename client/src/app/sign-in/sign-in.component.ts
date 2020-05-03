@@ -39,7 +39,10 @@ export class SignInComponent implements OnInit {
     this.loading = true;
 
     this.usersService.login(this.f.username.value, this.f.password.value).subscribe(
-      data => this.loading = false,
+      data => {
+        this.loading = false;
+        location.href = "/";
+      },
       error => {
         this.errorMessage = 'Login failed';
         this.loading = false;
